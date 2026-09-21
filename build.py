@@ -53,7 +53,7 @@ PH = {1: "woning-baksteen", 2: "dakkapel-zwart", 4: "rijtjeswoningen", 6: "bedri
       8: "steiger-installateurs", 9: "omvormer", 12: "team-steiger", 14: "installateurs-platdak", 15: "installateur-werk",
       16: "woning-hoek", 18: "dakramen-panelen", 19: "rijtjeswoning", 22: "platdak-sneeuw", 25: "industrieel-dak",
       26: "woning-blauwe-lucht", 28: "woning-rood", 29: "woning-zonnig", 30: "woning-modern", 32: "dakkapel-woning",
-      33: "bedrijfspand-b", 35: "aeg-batterij-1", 36: "aeg-batterij-2", 3: "platdak-opstelling", 10: "platdak-grind"}
+      11: "meterkast", 33: "bedrijfspand-b", 35: "aeg-batterij-1", 36: "aeg-batterij-2", 3: "platdak-opstelling", 10: "platdak-grind"}
 def img(n, small=False): return f"/assets/img/f/{n:02d}-{PH[n]}{'-s' if small else ''}.webp"
 
 ICONS = {
@@ -99,7 +99,7 @@ FAQ = [
  ("Loont het nog om zonnepanelen te nemen nu de salderingsregeling stopt?",
   "In veel gevallen wel. De salderingsregeling stopt op 1 januari 2027. Stroom die u direct zelf gebruikt blijft even voordelig, en voor wat u teruglevert ontvangt u een vergoeding (tot 2030 minimaal 50% van het kale leveringstarief). Daarom ontwerpen we uw installatie op uw verbruik en bespreken we of een thuisbatterij zinvol is. Zelfs zonder saldering verdienen zonnepanelen zich volgens de Rijksoverheid nog terug."),
  ("Wat kosten zonnepanelen en hoe snel verdien ik ze terug?",
-  "Dat hangt af van uw dak en uw verbruik. Voor een gemiddelde woning ligt de terugverdientijd indicatief tussen 7 en 10 jaar. Voor particulieren geldt bij aankoop voor de eigen woning op dit moment 0% btw. In het gratis adviesgesprek rekenen we het voor úw situatie uit."),
+  "Dat hangt af van uw dak en uw verbruik. Voor een gemiddelde woning ligt de terugverdientijd indicatief tussen 7 en 10 jaar. Voor particulieren geldt bij aankoop voor de eigen woning op dit moment 0% btw. In het gratis adviesgesprek rekenen we het voor uw situatie uit."),
  ("Hoe snel liggen de panelen op mijn dak?",
   f"Na uw aanvraag nemen we contact op voor een afspraak aan huis. Na akkoord op de offerte kan de installatie binnen {TIJD} worden uitgevoerd. De installatie zelf is vaak op één dag klaar."),
  ("Is mijn dak geschikt? Ik heb een plat dak, dakkapel of dakramen.",
@@ -114,10 +114,32 @@ FAQ = [
   "De dakscan en het adviesgesprek zijn gratis en vrijblijvend. U beslist pas na het zien van de offerte."),
 ]
 
-NAV = [("dd:Zonnepanelen", "zon"), ("/werkwijze/", "Werkwijze"), ("/projecten/", "Projecten"),
+
+FAQ_BATT = [
+ ("Loont een thuisbatterij nog nu de salderingsregeling stopt?",
+  "In veel gevallen wel, en juist dan. Vanaf 1 januari 2027 ontvangt u voor teruggeleverde stroom een lagere vergoeding (tot 2030 minimaal 50% van het kale leveringstarief), terwijl stroom die u ’s avonds inkoopt duur blijft. Een batterij bewaart uw overschot zodat u het zelf gebruikt. Of het bij u loont, hangt af van uw verbruik en energiecontract. Dat rekenen we vooraf voor u door."),
+ ("Wat kost een thuisbatterij?",
+  "Dat hangt af van de capaciteit, het merk en de installatie. Indicatief ligt de investering tussen ongeveer € 4.000 en € 10.000. Na het adviesgesprek ontvangt u een offerte met de exacte prijs, zonder verplichtingen."),
+ ("Hoe snel verdien ik een thuisbatterij terug?",
+  "Indicatief tussen de 5 en 10 jaar, maar dat verschilt sterk per huishouden. Uw avondverbruik, uw zonnepanelen en uw energiecontract bepalen het resultaat. Daarom rekenen we het voor uw situatie uit en beloven we geen standaardcijfers."),
+ ("Kan een batterij bij mijn bestaande zonnepanelen?",
+  "In veel gevallen wel. Het hangt af van uw omvormer en installatie. Tijdens het adviesgesprek bekijken we uw meterkast en omvormer en zeggen we eerlijk of het kan en of het loont."),
+ ("Welke capaciteit (kWh) heb ik nodig?",
+  "Dat hangt af van hoeveel stroom u ’s avonds en ’s nachts gebruikt en hoeveel uw panelen overdag overhouden. Te klein laat opbrengst liggen, te groot kost onnodig geld. We berekenen de juiste maat voor u."),
+ ("Werkt de batterij ook bij stroomuitval?",
+  "Dat hangt van het systeem af. Sommige thuisbatterijen kunnen als noodstroom dienen, andere niet. We bespreken vooraf wat u wilt en welk model daarbij past."),
+ ("Is een thuisbatterij veilig?",
+  "Moderne thuisbatterijen hebben ingebouwde beveiligingen. Wij werken met A-merken en laten de batterij installeren door gecertificeerde vakmannen."),
+ ("Welke garantie krijg ik?",
+  "5 jaar garantie op onze installatie, plus de fabrieksgarantie van het gekozen merk (bij thuisbatterijen vaak 10 jaar). De exacte voorwaarden hangen af van het model dat we voor u kiezen."),
+]
+FAQ_HOME = FAQ_BATT[:5] + [("Hoe snel is alles geïnstalleerd?", f"Na uw aanvraag komen we langs voor een adviesgesprek. Na akkoord op de offerte kan de installatie binnen {TIJD} worden uitgevoerd."),
+                            FAQ[7]]
+
+NAV = [("dd:Thuisbatterij", "batt"), ("dd:Zonnepanelen", "zon"), ("/werkwijze/", "Werkwijze"), ("/projecten/", "Projecten"),
        ("dd:Kennis", "kennis"), ("/over-ons/", "Over ons"), ("/contact/", "Contact")]
-DD = {"zon": [("/zonnepanelen-thuis/", "Zonnepanelen thuis"), ("/zonnepanelen-zakelijk/", "Zonnepanelen zakelijk"),
-              ("/thuisbatterij/", "Thuisbatterij"), ("/zonnepanelen-met-batterij-accu-kopen/", "Zonnepanelen met batterij")],
+DD = {"batt": [("/thuisbatterij/", "Thuisbatterij"), ("/zonnepanelen-met-batterij-accu-kopen/", "Zonnepanelen met batterij")],
+      "zon": [("/zonnepanelen-thuis/", "Zonnepanelen thuis"), ("/zonnepanelen-zakelijk/", "Zonnepanelen zakelijk")],
       "kennis": [("/salderingsregeling-2027/", "Salderingsregeling 2027"), ("/blog/", "Blog")]}
 
 
@@ -137,7 +159,7 @@ def jsonld(path, faq=None, extra=None):
     org = {"@context": "https://schema.org", "@type": "HomeAndConstructionBusiness", "name": "ZonnepanelenNu B.V.",
            "url": SITE, "telephone": "+31182607948", "email": MAIL, "image": SITE + img(7),
            "address": {"@type": "PostalAddress", "streetAddress": STRAAT, "postalCode": "2809PE", "addressLocality": "Gouda", "addressCountry": "NL"},
-           "areaServed": CITIES, "identifier": f"KvK {KVK}",
+           "areaServed": {"@type": "Country", "name": "Nederland"}, "identifier": f"KvK {KVK}",
            "aggregateRating": {"@type": "AggregateRating", "ratingValue": "4.8", "reviewCount": str(NREV)}}
     out = [org] + (extra or [])
     if faq:
@@ -168,7 +190,7 @@ def layout(path, title, desc, body, faq=None, og=None, extra=None, noindex=False
 <header><div class="wrap"><div class="bar">
  <a class="logo" href="/"><img src="/assets/img/logo.png" alt="ZonnepanelenNu" width="90" height="46"></a>
  <button class="burger" aria-label="Menu" aria-expanded="false">☰</button>
- <nav>{nav_html(path)}<a class="tel" href="tel:{TEL_HREF}">{ic("phone")}{TEL}</a><a class="btn btn-amber btn-sm" href="#offerte">Gratis dakscan</a></nav>
+ <nav>{nav_html(path)}<a class="tel" href="tel:{TEL_HREF}">{ic("phone")}{TEL}</a><a class="btn btn-amber btn-sm" href="#offerte">Gratis advies</a></nav>
 </div></div></header>
 <main id="main">
 {body}
@@ -176,12 +198,12 @@ def layout(path, title, desc, body, faq=None, og=None, extra=None, noindex=False
 <footer><div class="wrap cols">
  <div><img src="/assets/img/logo.png" alt="ZonnepanelenNu" width="90" height="46" style="background:#fff;border-radius:12px;padding:6px;margin-bottom:16px"><p>Uw specialist in zonnepanelen voor woning en bedrijf, met persoonlijk advies aan huis.<br><br>{STRAAT}<br>{PLAATS}<br>KvK {KVK}</p></div>
  <div><h4>Pagina’s</h4><ul><li><a href="/over-ons/">Over ons</a></li><li><a href="/werkwijze/">Werkwijze</a></li><li><a href="/projecten/">Projecten</a></li><li><a href="/salderingsregeling-2027/">Salderingsregeling 2027</a></li><li><a href="/blog/">Blog</a></li><li><a href="/contact/">Contact</a></li></ul></div>
- <div><h4>Diensten</h4><ul>{"".join(f'<li><a href="{h}">{l}</a></li>' for h, l in DD["zon"])}</ul></div>
- <div><h4>Werkgebied</h4><ul>{cities}</ul><br><a href="tel:{TEL_HREF}"><b style="color:#fff">{TEL}</b></a><br><a href="mailto:{MAIL}">{MAIL}</a></div>
+ <div><h4>Diensten</h4><ul>{"".join(f'<li><a href="{h}">{l}</a></li>' for h, l in DD["batt"] + DD["zon"])}</ul></div>
+ <div><h4>Plaatsen</h4><ul>{cities}</ul><br><a href="tel:{TEL_HREF}"><b style="color:#fff">{TEL}</b></a><br><a href="mailto:{MAIL}">{MAIL}</a></div>
 </div>
 <div class="wrap legal">© 2026 ZonnepanelenNu B.V. · <a href="/privacyverklaring/">Privacyverklaring</a> · <a href="/algemene-voorwaarden/">Algemene voorwaarden</a> · <a href="/cookie-policy/">Cookiebeleid</a> · <a href="#" data-cookie-settings>Cookie-instellingen</a></div></footer>
 <div class="cookie" id="cookie" hidden role="dialog" aria-label="Cookies"><p><b>Wij gebruiken cookies</b><br>Voor een goed werkende website en, met uw toestemming, voor statistieken en advertenties. <a href="/cookie-policy/">Lees meer</a></p><div><button class="btn btn-line btn-sm" data-consent="no">Alleen noodzakelijk</button><button class="btn btn-amber btn-sm" data-consent="yes">Accepteren</button></div></div>
-<div class="callbar"><a href="tel:{TEL_HREF}">{ic("phone")} Bel ons</a><a href="#offerte">Gratis dakscan</a></div>
+<div class="callbar"><a href="tel:{TEL_HREF}">{ic("phone")} Bel ons</a><a href="#offerte">Gratis advies</a></div>
 <script src="/assets/main.js"></script>
 </body>
 </html>"""
@@ -195,10 +217,10 @@ def hero(h1, sub, image, crumb=None, eyebrow=None, pcbar=True, buttons=False):
     cr = f'<div class="crumbs"><a href="/">Home</a> / {crumb}</div>' if crumb else ""
     eb = f'<span class="eyebrow">{eyebrow}</span><br>' if eyebrow else ""
     if pcbar:
-        act = f"""<div class="pc" data-pc><input aria-label="Postcode en huisnummer" placeholder="Postcode + huisnummer" autocomplete="postal-code"><button class="btn btn-amber" type="button">Start gratis dakscan</button></div>
+        act = f"""<div class="pc" data-pc><input aria-label="Postcode en huisnummer" placeholder="Postcode + huisnummer" autocomplete="postal-code"><button class="btn btn-amber" type="button">Vraag gratis advies</button></div>
   <div class="hnote"><span class="ch">Gratis en vrijblijvend</span><span class="ch">Offerte binnen 24 uur</span><span>{stars()} <b>{RATING}</b> · {NREV} Google-reviews</span></div>"""
     else:
-        act = f'<div style="display:flex;gap:12px;flex-wrap:wrap"><a class="btn btn-amber" href="#offerte">Gratis dakscan</a><a class="btn btn-ghost" href="tel:{TEL_HREF}">{ic("phone")} {TEL}</a></div>'
+        act = f'<div style="display:flex;gap:12px;flex-wrap:wrap"><a class="btn btn-amber" href="#offerte">Gratis advies</a><a class="btn btn-ghost" href="tel:{TEL_HREF}">{ic("phone")} {TEL}</a></div>'
     return f"""<section class="hero" style="--hero:url('{image}')"><div class="wrap">
  <div class="hcard">{cr}{eb}<h1>{h1}</h1><p class="sub">{sub}</p>{act}</div>
 </div></section>"""
@@ -215,34 +237,49 @@ def head(eyebrow, h2, lead="", c=False):
 
 
 PAINS = [
- ("trend", "Mijn energierekening blijft stijgen", "Met zonnepanelen wekt u overdag zelf stroom op en koopt u minder in. We rekenen vooraf uit wat úw dak oplevert, zodat u niet hoeft te gokken.", "/zonnepanelen-thuis/", "Zonnepanelen voor thuis"),
- ("euro", "De salderingsregeling stopt. Loont het nog?", "Vanaf 1 januari 2027 draait het om zelf gebruiken in plaats van terugleveren. Wij ontwerpen uw installatie op uw verbruik en vertellen eerlijk wat het u oplevert.", "/salderingsregeling-2027/", "Wat verandert er in 2027?"),
- ("battery", "Ik krijg weinig terug voor mijn overschot", "Een thuisbatterij bewaart uw zonnestroom voor de avond, wanneer u de stroom het hardst nodig heeft en het duurst inkoopt.", "/thuisbatterij/", "Zo werkt een thuisbatterij"),
- ("home", "Is mijn dak wel geschikt?", "Plat dak, dakkapel of dakramen? We hebben het vaak gedaan. Tijdens de gratis dakscan weet u binnen een minuut of er iets aan de hand is.", "#offerte", "Start de dakscan"),
+ ("euro", "Ik krijg straks weinig terug voor mijn overschot", "Vanaf 1 januari 2027 stopt de salderingsregeling en levert teruggeleverde stroom veel minder op. Een thuisbatterij bewaart uw overschot, zodat u het zelf gebruikt.", "/thuisbatterij/", "Zo werkt een thuisbatterij"),
+ ("trend", "Mijn energierekening blijft stijgen", "’s Avonds, als u de meeste stroom gebruikt, wekken uw panelen niets meer op. Met een batterij gebruikt u dan uw eigen zonnestroom in plaats van stroom uit het net.", "/thuisbatterij/", "Bekijk de mogelijkheden"),
+ ("battery", "Ik heb al zonnepanelen. Kan er een batterij bij?", "In veel gevallen wel. We kijken naar uw omvormer, meterkast en verbruik en zeggen eerlijk of het kan en of het loont.", "#offerte", "Vraag advies aan"),
+ ("zap", "Wat als de stroom uitvalt?", "Sommige thuisbatterijen kunnen als noodstroom dienen. We bespreken wat u wilt en welk model daarbij past.", "/thuisbatterij/", "Lees meer"),
  ("shield", "Ik weet niet wie ik kan vertrouwen", f"Gecertificeerde vakmannen, advies aan huis, 5 jaar garantie en {RATING} op Google. Lees wat klanten zeggen voordat u iets tekent.", "#reviews", "Lees de reviews"),
- ("building", "Ik wil mijn bedrijfspand verduurzamen", "Groot dak, hoog verbruik: een goed ontworpen installatie verlaagt uw energiekosten en versterkt uw duurzame imago.", "/zonnepanelen-zakelijk/", "Zakelijke oplossingen"),
+ ("home", "Ik heb nog geen zonnepanelen", "Dan ontwerpen we panelen en batterij als één geheel, afgestemd op uw verbruik. Eén gesprek, één offerte, één partner.", "/zonnepanelen-met-batterij-accu-kopen/", "Zonnepanelen met batterij"),
 ]
 
 def pain_block():
     cards = "".join(f'<a class="pain reveal" href="{h}"><div class="ic">{ic(i)}</div><h3>{t}</h3><p>{p}</p><span class="more">{l}</span></a>' for i, t, p, h, l in PAINS)
-    return f'<section><div class="wrap">{head("Herkent u dit?", "Waar loopt u tegenaan?", "Deze vragen horen we het vaakst van huiseigenaren en ondernemers. Het antwoord begint altijd met kijken naar úw situatie.")}<div class="grid3">{cards}</div></div></section>'
+    return f'<section><div class="wrap">{head("Herkent u dit?", "Waar loopt u tegenaan?", "Deze vragen horen we het vaakst van huiseigenaren en ondernemers. Het antwoord begint altijd met kijken naar uw situatie.")}<div class="grid3">{cards}</div></div></section>'
 
 
 def how_block(image=15, alt=True):
     return f"""<section class="{'alt' if alt else ''}"><div class="wrap split">
  <div class="ph reveal"><img src="{img(image)}" alt="Installateur van ZonnepanelenNu monteert een zonnepaneel" loading="lazy"></div>
- <div class="reveal"><span class="eyebrow">Zo werkt het</span><h2>Eerst kijken we naar uw dak. Dan pas praten we over prijs.</h2>
-  <p>We komen bij u langs, bekijken dak en meterkast en kijken naar uw verbruik. Daarna krijgt u een offerte op maat: het aantal panelen, de verwachte opbrengst en de terugverdientijd. Duidelijk, zonder kleine lettertjes.</p>
-  <p>Akkoord? Dan plannen we de installatie. Onze gecertificeerde vakmannen leggen de panelen en nemen het afval mee. U hoeft niets te regelen.</p>
-  <ul class="list"><li>Advies aan huis is standaard en gratis</li><li>Offerte met verwachte opbrengst per jaar</li><li>Monitoring via uw smartphone inbegrepen</li></ul>
+ <div class="reveal"><span class="eyebrow">Zo werkt het</span><h2>Eerst kijken we naar uw situatie. Dan pas praten we over prijs.</h2>
+  <p>We komen bij u langs, bekijken meterkast, omvormer en dak en kijken naar uw verbruik. Daarna krijgt u een offerte op maat: de juiste opzet (batterij, panelen of allebei), de verwachte besparing en de terugverdientijd. Duidelijk, zonder kleine lettertjes.</p>
+  <p>Akkoord? Dan plannen we de installatie. Onze gecertificeerde vakmannen installeren alles en nemen het afval mee. U hoeft niets te regelen.</p>
+  <ul class="list"><li>Advies aan huis is standaard en gratis</li><li>Offerte met verwachte besparing per jaar</li><li>Monitoring via uw smartphone inbegrepen</li></ul>
   <p style="margin-top:26px"><a class="btn btn-amber" href="#offerte">Plan uw adviesgesprek</a></p></div></div></section>"""
 
 
+
+def battery_block():
+    st = [("Overdag opladen", "Uw panelen wekken meer op dan u gebruikt. Het overschot gaat in de batterij, in plaats van naar het net."),
+          ("’s Avonds gebruiken", "Als de zon weg is, gebruikt u uw eigen opgeslagen stroom. U koopt minder in tegen het hoge avondtarief."),
+          ("Slim handelen", "Een slimme batterij laadt op goedkope uren en ontlaadt op dure. Op een dag met grote prijsverschillen kan dat met 10 kWh ruim € 7 opleveren (voorbeeld).")]
+    steps = "".join(f"<div class='reveal'><h3>{t}</h3><p>{d}</p></div>" for t, d in st)
+    return f"""<section class="alt" id="thuisbatterij"><div class="wrap">
+ <div class="split">
+  <div class="ph reveal"><img src="{img(35)}" alt="AEG-thuisbatterij naast de meterkast" loading="lazy"></div>
+  <div class="reveal"><span class="eyebrow">Thuisbatterij</span><h2>Gebruik ’s avonds uw eigen zonnestroom</h2>
+   <p>Zonnepanelen leveren overdag, maar u gebruikt het meest in de ochtend en de avond. Een thuisbatterij overbrugt dat gat. Zo betaalt u minder voor stroom uit het net, en verliest u minder aan teruglevering.</p>
+   <ul class="list"><li>Minder stroom inkopen, meer zelf gebruiken</li><li>Minder afhankelijk van terugleververgoedingen</li><li>Ook te combineren met bestaande zonnepanelen (afhankelijk van uw installatie)</li><li>Advies met eerlijke berekening, zonder standaardbeloftes</li></ul>
+   <p style="margin-top:26px;display:flex;gap:12px;flex-wrap:wrap"><a class="btn btn-amber" href="/thuisbatterij/">Alles over de thuisbatterij</a><a class="btn btn-line" href="#offerte">Vraag gratis advies</a></p></div></div>
+ <div class="steps" style="margin-top:56px">{steps}</div></div></section>"""
+
 def saldering_block():
-    return f"""<section class="dark"><div class="wrap">{head("Salderingsregeling 2027", "Saldering stopt op 1 januari 2027. Goed ontworpen zonnepanelen blijven lonen.")}
+    return f"""<section class="dark"><div class="wrap">{head("Salderingsregeling 2027", "Saldering stopt op 1 januari 2027. Zo haalt u toch het maximale uit uw stroom.")}
  <div class="sal">
-  <div class="reveal"><b>1</b><h3>Zelf gebruiken wint</h3><p>Stroom die u direct gebruikt verandert niet: die blijft even voordelig. Een installatie die past bij uw verbruik is daarom belangrijker dan ooit.</p></div>
-  <div class="reveal"><b>2</b><h3>Een batterij als buffer</h3><p>Overdag wekt u veel op, ’s avonds gebruikt u het meest. Een thuisbatterij overbrugt dat gat, in plaats van dat u uw overschot goedkoop teruglevert.</p></div>
+  <div class="reveal"><b>1</b><h3>Een batterij als buffer</h3><p>Overdag wekt u veel op, ’s avonds gebruikt u het meest. Een thuisbatterij overbrugt dat gat, in plaats van dat u uw overschot goedkoop teruglevert.</p></div>
+  <div class="reveal"><b>2</b><h3>Zelf gebruiken wint</h3><p>Stroom die u direct gebruikt verandert niet: die blijft even voordelig. Een installatie die past bij uw verbruik is daarom belangrijker dan ooit.</p></div>
   <div class="reveal"><b>3</b><h3>Nog steeds een vergoeding</h3><p>Voor wat u teruglevert ontvangt u een vergoeding van uw leverancier: tot 2030 minimaal 50% van het kale leveringstarief.</p></div>
  </div>
  <p style="margin-top:34px"><a class="btn btn-amber" href="/salderingsregeling-2027/">Wat betekent dit voor mij?</a></p>
@@ -250,11 +287,11 @@ def saldering_block():
 
 
 def services_block():
-    d = [(1, "Zonnepanelen thuis", "Verlaag uw energierekening en word minder afhankelijk van het net. Met advies aan huis en een installatie die bij uw dak past.", "/zonnepanelen-thuis/"),
-         (33, "Zonnepanelen zakelijk", "Uw bedrijfsdak als energiebron. Bespaar op energiekosten en versterk uw duurzame imago.", "/zonnepanelen-zakelijk/"),
-         (35, "Thuisbatterij", "Gebruik uw eigen zonnestroom wanneer ú wilt, zonder zorgen over terugleververgoedingen.", "/thuisbatterij/")]
+    d = [(35, "Thuisbatterij", "Sla uw zonnestroom op en gebruik hem wanneer u wilt, zonder zorgen over terugleververgoedingen.", "/thuisbatterij/"),
+         (9, "Zonnepanelen met batterij", "Panelen en batterij als één geheel, afgestemd op uw verbruik. Eén gesprek, één offerte.", "/zonnepanelen-met-batterij-accu-kopen/"),
+         (1, "Zonnepanelen thuis", "Verlaag uw energierekening en word minder afhankelijk van het net, met een installatie die bij uw dak past.", "/zonnepanelen-thuis/")]
     cards = "".join(f'<article class="card reveal"><img src="{img(n, True)}" alt="{t}" loading="lazy"><div class="b"><h3>{t}</h3><p>{p}</p><a class="more" href="{h}">Lees meer</a></div></article>' for n, t, p, h in d)
-    return f'<section class="alt">{"<div class=wrap>"}{head("Onze diensten", "Eén partner, van advies tot service", "Wat u ook kiest: u praat met dezelfde mensen van eerste gesprek tot storingsservice.")}<div class="grid3">{cards}</div></div></section>'
+    return f'<section class="alt"><div class="wrap">{head("Onze diensten", "Eén partner, van advies tot service", "Wat u ook kiest: u praat met dezelfde mensen van eerste gesprek tot storingsservice.")}<div class="grid3">{cards}</div><p style="text-align:center;margin-top:30px;color:var(--mute)">Ook voor bedrijven: <a class="more" href="/zonnepanelen-zakelijk/">zonnepanelen zakelijk</a></p></div></section>'
 
 
 def why_block():
@@ -273,8 +310,8 @@ def stats_block():
     return f'<section class="dark" style="padding:64px 0"><div class="wrap stats reveal"><div><b>10+</b><span>jaar ervaring</span></div><div><b>{RATING}</b><span>gemiddeld op Google</span></div><div><b>{NREV}</b><span>klantbeoordelingen</span></div><div><b>25 jr</b><span>fabrieksgarantie</span></div></div></section>'
 
 
-GAL_HOME = [(2, "tall", "Zwarte panelen rond dakkapel"), (22, "", "Plat dak, opstelling"), (14, "", "Installatie op plat dak"),
-            (6, "wide", "Bedrijfspand"), (35, "tall", "AEG-thuisbatterij"), (30, "", "Woning met dakramen"), (4, "", "Rijtjeswoningen"),
+GAL_HOME = [(35, "tall", "AEG-thuisbatterij"), (2, "", "Zwarte panelen rond dakkapel"), (36, "", "AEG-batterij"),
+            (6, "wide", "Bedrijfspand"), (9, "tall", "Omvormer"), (22, "", "Plat dak, opstelling"), (14, "", "Installatie op plat dak"),
             (12, "wide", "Ons team aan het werk")]
 GAL_THUIS = [(2, "tall", "Zwarte panelen rond dakkapel"), (22, "", "Plat dak, opstelling"), (14, "", "Installatie op plat dak"),
              (30, "", "Woning met dakramen"), (4, "", "Rijtjeswoningen"), (35, "", "AEG-thuisbatterij"), (26, "", "Woning in de zon")]
@@ -315,14 +352,14 @@ def faq_block(items=FAQ, alt=True):
  <div class="reveal">{d}</div></div></section>"""
 
 
-def offer_block(title="Ontdek wat zonnepanelen voor úw dak kunnen betekenen"):
+def offer_block(title="Ontdek wat een thuisbatterij voor uw woning kan betekenen"):
     return f"""<section id="offerte"><div class="wrap offer">
- <div class="reveal"><span class="eyebrow">Gratis dakscan</span><h2>{title}</h2>
+ <div class="reveal"><span class="eyebrow">Gratis advies</span><h2>{title}</h2>
   <p class="lead" style="margin-bottom:22px">Laat uw gegevens achter en we nemen contact met u op voor een afspraak aan huis. U ontvangt een voorstel op maat.</p>
-  <ul class="list"><li>Gratis en vrijblijvend</li><li>Verwachte opbrengst en terugverdientijd voor úw dak</li><li>Offerte binnen 24 uur na het adviesgesprek</li><li>Geen verplichtingen, u beslist pas na de offerte</li></ul>
+  <ul class="list"><li>Gratis en vrijblijvend</li><li>Verwachte besparing en terugverdientijd voor uw situatie</li><li>Offerte binnen 24 uur na het adviesgesprek</li><li>Geen verplichtingen, u beslist pas na de offerte</li></ul>
   <div class="person"><div class="av">A</div><div><b>Abdel en team</b><small>Uw aanvraag wordt persoonlijk opgepakt</small></div></div>
   <p style="margin-top:20px;color:var(--mute)">Liever bellen? <a href="tel:{TEL_HREF}" style="color:var(--blue-d);font-weight:700">{TEL}</a></p></div>
- <form class="form reveal" data-form novalidate><div class="fields"><h3 style="font-size:24px;margin-bottom:4px">Vraag uw gratis dakscan aan</h3><small style="color:var(--mute)">Duurt 1 minuut</small>
+ <form class="form reveal" data-form novalidate><div class="fields"><h3 style="font-size:24px;margin-bottom:4px">Vraag uw gratis advies aan</h3><small style="color:var(--mute)">Duurt 1 minuut</small>
   <div class="row2"><div><label for="f-naam">Naam *</label><input id="f-naam" required autocomplete="name"></div><div><label for="f-tel">Telefoon *</label><input id="f-tel" type="tel" required autocomplete="tel"></div></div>
   <label for="f-mail">E-mailadres *</label><input id="f-mail" type="email" required autocomplete="email">
   <div class="row2"><div><label for="f-postcode">Postcode + huisnummer *</label><input id="f-postcode" required autocomplete="postal-code"></div><div><label for="f-dak">Type dak</label><select id="f-dak"><option>Schuin dak</option><option>Plat dak</option><option>Beide / weet ik niet</option></select></div></div>
@@ -345,11 +382,11 @@ def gloss_block():
 
 
 def cities_block():
-    return f'<section><div class="wrap">{head("Werkgebied", "Zonnepanelen in uw regio", "We plaatsen zonnepanelen in en rond Gouda, Rotterdam en Den Haag.")}<div class="cities">' + "".join(f'<a href="/{slug(c)}/">Zonnepanelen {c}</a>' for c in CITIES) + "</div></div></section>"
+    return f'<section><div class="wrap">{head("Plaatsen", "Zonnepanelen en thuisbatterijen in uw plaats", "Vraag advies aan in uw plaats.")}<div class="cities">' + "".join(f'<a href="/{slug(c)}/">Zonnepanelen {c}</a>' for c in CITIES) + "</div></div></section>"
 
 
-def cta_block(h="Klaar voor een dak dat energie oplevert?", p="Vraag uw gratis dakscan aan. Vrijblijvend, en u weet binnen een minuut of uw dak geschikt is."):
-    return f'<section style="padding:0 0 92px"><div class="wrap"><div class="cta-band reveal"><div><h2>{h}</h2><p>{p}</p></div><div class="acts"><a class="btn btn-amber" href="#offerte">Gratis dakscan</a><a class="btn btn-ghost" href="tel:{TEL_HREF}">{TEL}</a></div></div></div></section>'
+def cta_block(h="Klaar om uw eigen stroom slimmer te gebruiken?", p="Vraag gratis advies aan. Vrijblijvend, en u weet snel of een thuisbatterij bij u past."):
+    return f'<section style="padding:0 0 92px"><div class="wrap"><div class="cta-band reveal"><div><h2>{h}</h2><p>{p}</p></div><div class="acts"><a class="btn btn-amber" href="#offerte">Gratis advies</a><a class="btn btn-ghost" href="tel:{TEL_HREF}">{TEL}</a></div></div></div></section>'
 
 
 def prose(inner, alt=False):
@@ -361,8 +398,9 @@ def post_card(p):
     return f'<a class="post reveal" href="{p["path"]}" data-cat="{e(p["cat"])}" data-t="{e(p["title"].lower())}"><div class="meta">{e(p["cat"])} · {nl_date(p["date"])}</div><h3>{e(p["title"])}</h3><p>{e(p["excerpt"])}</p><span class="more">Lees meer</span></a>'
 
 
-def latest_block(n=3):
-    return f'<section><div class="wrap">{head("Kennis", "Laatste artikelen", "Antwoorden op vragen over kosten, opbrengst en thuisbatterijen.")}<div class="grid3">{"".join(post_card(p) for p in POSTS[:n])}</div><p style="text-align:center;margin-top:34px"><a class="btn btn-line" href="/blog/">Alle artikelen</a></p></div></section>'
+def latest_block(n=3, keys=None, title="Laatste artikelen"):
+    sel = [p for p in POSTS if not keys or any(k in p["title"].lower() for k in keys)][:n]
+    return f'<section><div class="wrap">{head("Kennis", title, "Antwoorden op vragen over kosten, opbrengst en thuisbatterijen.")}<div class="grid3">{"".join(post_card(p) for p in sel)}</div><p style="text-align:center;margin-top:34px"><a class="btn btn-line" href="/blog/">Alle artikelen</a></p></div></section>'
 
 
 def related_block(keys, n=3):
@@ -374,18 +412,18 @@ def related_block(keys, n=3):
 
 pages = {}   # pad -> (title, desc, body, faq?)
 
-pages["/"] = ("Zonnepanelen laten plaatsen in Gouda, Rotterdam & Den Haag | ZonnepanelenNu",
- f"Zonnepanelen waar u écht op bespaart. Persoonlijk advies aan huis, gecertificeerde vakmannen en {RATING} op Google. Vraag een gratis dakscan aan.",
- hero("Zonnepanelen waar u <span>écht</span> op bespaart",
-      "Elke maand een hogere energierekening, en per 1 januari 2027 stopt ook nog de salderingsregeling. Wij ontwerpen een installatie op uw verbruik, leggen hem zelf en blijven bereikbaar als hij ligt.",
-      img(15), eyebrow="Zonnepanelen in Gouda, Rotterdam en Den Haag")
- + trust() + pain_block() + how_block(7) + saldering_block() + services_block() + why_block() + stats_block()
- + gallery_block() + reviews_block(3) + steps_block() + brands_block() + faq_block() + offer_block() + latest_block() + gloss_block() + cities_block() + cta_block(),
- FAQ)
+pages["/"] = ("Thuisbatterij en zonnepanelen | Advies aan huis | ZonnepanelenNu",
+ f"Sla uw zonnestroom op met een thuisbatterij en betaal minder. Persoonlijk advies aan huis, gecertificeerde vakmannen en {RATING} op Google. Vraag gratis advies aan.",
+ hero("Gebruik uw eigen zonnestroom <span>wanneer u wilt</span>",
+      "Per 1 januari 2027 stopt de salderingsregeling. Een thuisbatterij bewaart uw overschot voor de avond, zodat u minder inkoopt en minder verliest bij terugleveren. Wij adviseren, installeren en blijven bereikbaar.",
+      img(15), eyebrow="Thuisbatterijen en zonnepanelen")
+ + trust() + pain_block() + battery_block() + saldering_block() + how_block(7, False) + services_block() + why_block() + stats_block()
+ + gallery_block() + reviews_block(3) + steps_block() + brands_block() + faq_block(FAQ_HOME) + offer_block() + latest_block(3, ("batterij", "accu"), "Alles over thuisbatterijen") + gloss_block() + cities_block() + cta_block(),
+ FAQ_HOME)
 
 pages["/zonnepanelen-thuis/"] = ("Zonnepanelen voor thuis | Advies aan huis | ZonnepanelenNu",
  "Lagere energierekening met zonnepanelen op uw woning. Gratis advies aan huis, A-merken met tot 25 jaar garantie en gecertificeerde vakmannen.",
- hero("Zonnepanelen voor uw <span>woning</span>", "Verlaag uw energierekening en word minder afhankelijk van het net. Met een installatie die past bij úw dak en úw verbruik.", img(1), "Zonnepanelen thuis", "Zonnepanelen thuis")
+ hero("Zonnepanelen voor uw <span>woning</span>", "Verlaag uw energierekening en word minder afhankelijk van het net. Met een installatie die past bij uw dak en uw verbruik.", img(1), "Zonnepanelen thuis", "Zonnepanelen thuis")
  + trust()
  + prose(f"""<span class="eyebrow">Voor huiseigenaren</span><h2>Bespaar op uw energierekening, ook na 2027</h2>
  <p>Elke kilowattuur die u zelf opwekt en direct gebruikt, hoeft u niet in te kopen. Dat blijft na het stoppen van de salderingsregeling op 1 januari 2027 net zo voordelig. Daarom kijken we bij een advies niet alleen naar uw dak, maar vooral naar wanneer u stroom gebruikt.</p>
@@ -406,20 +444,36 @@ pages["/zonnepanelen-zakelijk/"] = ("Zonnepanelen zakelijk | Bedrijfsdak verduur
  + gallery_block(GAL_BIZ, False) + reviews_block(3, True) + faq_block() + offer_block("Wat kunnen zonnepanelen voor uw bedrijf betekenen?") + cta_block(),
  FAQ)
 
+
+def battery_usp():
+    it = [("🌙", "Minder inkopen", "U gebruikt ’s avonds uw eigen stroom in plaats van stroom uit het net."),
+          ("💶", "Minder verlies bij teruglevering", "Na de salderingsregeling levert teruggeleverde stroom minder op. Opslaan is dan slimmer."),
+          ("📈", "Slim handelen", "Een slimme batterij laadt op goedkope uren en ontlaadt op dure."),
+          ("🔌", "Bij bestaande panelen", "In veel gevallen kan een batterij bij uw huidige installatie (afhankelijk van uw omvormer)."),
+          ("🛡️", "Optioneel noodstroom", "Sommige modellen kunnen bij stroomuitval doorleveren. We bespreken wat u wilt."),
+          ("📱", "Inzicht op uw telefoon", "Volg live wat uw panelen en batterij doen (monitoring is inbegrepen).")]
+    return f'<section><div class="wrap">{head("Voordelen", "Waarom een thuisbatterij?")}<div class="usp">' + "".join(
+        f'<div class="reveal"><div class="ic">{i}</div><h3>{t}</h3><p>{p}</p></div>' for i, t, p in it) + "</div></div></section>"
+
+
+def battery_steps():
+    return f"""<section class="alt"><div class="wrap">{head("Zo werkt het", "In drie stappen slimmer met uw stroom", "", True)}
+ <div class="steps"><div class="reveal"><h3>Overdag opladen</h3><p>Uw panelen wekken meer op dan u gebruikt. Het overschot gaat in de batterij.</p></div>
+ <div class="reveal"><h3>’s Avonds gebruiken</h3><p>Als de zon weg is, gebruikt u uw opgeslagen stroom en koopt u minder in.</p></div>
+ <div class="reveal"><h3>Slim aansturen</h3><p>De batterij laadt op goedkope momenten en ontlaadt op dure. Op een dag met grote prijsverschillen kan dat met 10 kWh ruim € 7 opleveren (voorbeeld).</p></div></div></div></section>"""
+
 pages["/thuisbatterij/"] = ("Thuisbatterij installeren | Zonnestroom opslaan | ZonnepanelenNu",
- "Sla uw zonnestroom op met een thuisbatterij en gebruik hem wanneer ú wilt. Persoonlijk advies en installatie door gecertificeerde vakmannen.",
- hero("Gebruik uw zonnestroom wanneer <span>ú</span> wilt", "Een thuisbatterij bewaart uw overschot voor de avond, in plaats van dat u het goedkoop teruglevert.", img(35), "Thuisbatterij", "Thuisbatterij")
- + trust()
- + prose("""<span class="eyebrow">Zonnestroom opslaan</span><h2>Waarom een thuisbatterij?</h2>
- <p>Uw zonnepanelen wekken overdag stroom op, maar uw verbruik piekt ’s ochtends en ’s avonds. Een thuisbatterij slaat het overschot op, zodat u ’s avonds uw eigen stroom gebruikt in plaats van dure stroom uit het net.</p>
- <p>Dat verhoogt uw zelfvoorzienendheid en verlaagt uw energierekening. Nu de salderingsregeling op 1 januari 2027 stopt en terugleveren minder oplevert, is het slim om te kijken of een batterij bij u past.</p>
- <h2>Slim laden en ontladen</h2>
- <p>Energieprijzen verschillen per uur. Een slimme batterij laadt op goedkope momenten en ontlaadt op dure momenten. Bij een accu van 10 kWh kan dat op een dag met grote prijsverschillen ruim € 7 opleveren (voorbeeldberekening).</p>
- <h2>Ook een back-up bij stroomuitval</h2>
- <p>Afhankelijk van het systeem kan een thuisbatterij als noodvoorziening dienen. Dat bespreken we in het adviesgesprek.</p>
- <ul><li>Advies of u een batterij nodig heeft, met eerlijke berekening</li><li>Installatie door gecertificeerde vakmannen</li><li>Combineerbaar met bestaande zonnepanelen (afhankelijk van uw installatie)</li></ul>""")
- + gallery_block(GAL_BATT, False, 3) + related_block(("batterij", "accu")) + faq_block() + offer_block("Past een thuisbatterij bij uw situatie?") + cta_block(),
- FAQ)
+ "Sla uw zonnestroom op met een thuisbatterij en gebruik hem wanneer u wilt. Eerlijk advies aan huis en installatie door gecertificeerde vakmannen. Vraag gratis advies aan.",
+ hero("Gebruik uw zonnestroom wanneer <span>u</span> wilt", "Een thuisbatterij bewaart uw overschot voor de avond, in plaats van dat u het goedkoop teruglevert.", img(35), "Thuisbatterij", "Thuisbatterij")
+ + trust() + battery_usp() + battery_steps()
+ + prose("""<span class="eyebrow">Kosten en rendement</span><h2>Wat kost een thuisbatterij, en wanneer verdient hij zich terug?</h2>
+ <p>Dat hangt af van de capaciteit, het merk en de installatie. Indicatief ligt de investering tussen ongeveer € 4.000 en € 10.000. De terugverdientijd ligt indicatief tussen 5 en 10 jaar, maar verschilt sterk per huishouden: uw avondverbruik, uw zonnepanelen en uw energiecontract bepalen het resultaat.</p>
+ <p>Daarom beloven wij geen standaardcijfers. In een gratis adviesgesprek bekijken we uw meterkast, omvormer en verbruik, en rekenen we uit of een batterij bij u loont. Zo niet, dan zeggen we dat ook.</p>
+ <h2>Welke capaciteit heeft u nodig?</h2>
+ <p>Te klein laat opbrengst liggen, te groot kost onnodig geld. De juiste maat hangt af van uw verbruik ’s avonds en ’s nachts en van wat uw panelen overdag overhouden.</p>
+ <ul><li>Advies of u een batterij nodig heeft, met eerlijke berekening</li><li>Installatie door gecertificeerde vakmannen</li><li>Alleen A-merken, met fabrieksgarantie</li><li>5 jaar garantie op onze installatie</li></ul>""")
+ + saldering_block() + gallery_block(GAL_BATT, False, 3) + related_block(("batterij", "accu"), 6) + faq_block(FAQ_BATT) + offer_block("Past een thuisbatterij bij uw situatie?") + cta_block(),
+ FAQ_BATT)
 
 pages["/zonnepanelen-met-batterij-accu-kopen/"] = ("Zonnepanelen met thuisbatterij kopen | ZonnepanelenNu",
  "Zonnepanelen én een thuisbatterij in één keer laten plaatsen? Persoonlijk advies aan huis en een offerte op maat van ZonnepanelenNu.",
@@ -431,8 +485,8 @@ pages["/zonnepanelen-met-batterij-accu-kopen/"] = ("Zonnepanelen met thuisbatter
  <p>Uw panelen wekken stroom op. Wat u direct gebruikt, gebruikt u direct. Wat overblijft, gaat in de batterij en gebruikt u ’s avonds. Alleen wat dan nog over is, levert u terug.</p>
  <h2>Slim handelen op de energiebeurs</h2>
  <p>Een batterij die automatisch wordt aangestuurd, laadt wanneer stroom goedkoop is en ontlaadt wanneer stroom duur is. Energieprijzen worden per uur bepaald op basis van vraag en aanbod, en overdag zijn ze door zonnestroom vaak laag of zelfs negatief.</p>""")
- + related_block(("batterij", "accu")) + faq_block() + offer_block("Offerte voor zonnepanelen met batterij") + cta_block(),
- FAQ)
+ + related_block(("batterij", "accu")) + faq_block(FAQ_BATT) + offer_block("Offerte voor zonnepanelen met batterij") + cta_block(),
+ FAQ_BATT)
 
 pages["/salderingsregeling-2027/"] = ("Salderingsregeling stopt 1 januari 2027: wat betekent dat voor u? | ZonnepanelenNu",
  "De salderingsregeling stopt op 1 januari 2027. Wat verandert er, loont het nog om zonnepanelen te nemen en hoe haalt u meer uit uw eigen stroom?",
@@ -446,7 +500,7 @@ pages["/salderingsregeling-2027/"] = ("Salderingsregeling stopt 1 januari 2027: 
  <ul><li><b>Gebruik overdag meer.</b> Was- en vaatwasser, of het opladen van een elektrische auto, kunt u op zonnige momenten laten draaien.</li><li><b>Kies de juiste omvang.</b> Niet zoveel mogelijk panelen, maar wat bij uw verbruik past.</li><li><b>Overweeg een thuisbatterij.</b> Die bewaart uw overschot voor de avond.</li><li><b>Kijk naar uw energiecontract.</b> Let op terugleverkosten en de vergoeding voor teruglevering.</li></ul>
  <h2>Heeft u al zonnepanelen?</h2>
  <p>Dan verandert er per 1 januari 2027 iets voor u, maar uw panelen blijven waardevol. In een gratis gesprek kijken we of een batterij of een aanpassing in uw verbruik zinvol is.</p>
- <p style="margin-top:28px"><a class="btn btn-amber" href="#offerte">Vraag een gratis dakscan aan</a></p>
+ <p style="margin-top:28px"><a class="btn btn-amber" href="#offerte">Vraag gratis advies aan</a></p>
  <p style="font-size:14px;color:var(--mute);margin-top:34px">Bronnen: <a href="https://www.rijksoverheid.nl/themas/klimaat-milieu-en-natuur/energie-thuis/salderingsregeling" rel="noopener" style="text-decoration:underline">Rijksoverheid, salderingsregeling</a>. Algemene informatie; uw persoonlijke situatie kan afwijken.</p>""")
  + related_block(("verandert", "subsidie", "rendabel", "zinvol")) + faq_block(FAQ[:2] + FAQ[6:7]) + offer_block() + cta_block(),
  FAQ[:2] + FAQ[6:7])
@@ -456,9 +510,9 @@ pages["/werkwijze/"] = ("Onze werkwijze | Van advies tot oplevering | Zonnepanel
  hero("Van eerste gesprek tot <span>oplevering</span>", "Duidelijk, persoonlijk en zonder verrassingen. Zo werken wij.", img(8), "Werkwijze", "Onze werkwijze", pcbar=False)
  + steps_block() + how_block(15, True) + faq_block(FAQ[2:6], False) + offer_block() + cta_block(), FAQ[2:6])
 
-pages["/over-ons/"] = ("Over ons | ZonnepanelenNu Gouda",
+pages["/over-ons/"] = ("Over ons | ZonnepanelenNu",
  "Al meer dan 10 jaar leggen wij zonnepanelen op woningen en bedrijfspanden. Kwaliteit, A-merken en persoonlijk advies aan huis.",
- hero("Mensen die uw dak <span>zelf</span> aanpakken", "Al meer dan 10 jaar realiseren we zonnepaneleninstallaties voor woningen en bedrijven in en rond Gouda.", img(12), "Over ons", "Over ZonnepanelenNu", pcbar=False)
+ hero("Mensen die uw dak <span>zelf</span> aanpakken", "Al meer dan 10 jaar realiseren we zonnepaneleninstallaties voor woningen en bedrijven.", img(12), "Over ons", "Over ZonnepanelenNu", pcbar=False)
  + prose(f"""<span class="eyebrow">Ons verhaal</span><h2>Kwaliteit staat bij ons hoog in het vaandel</h2>
  <p>Wij werken uitsluitend met A-merken. Daarnaast vinden we persoonlijke service belangrijk: we komen altijd langs om de situatie te bekijken en uw wensen te bespreken voordat we een offerte uitbrengen.</p>
  <p>Dat doen we efficiënt, waardoor de installatie binnen {TIJD} na akkoord kan worden uitgevoerd. En als er na de oplevering iets is, bent u niet met een servicenummer aan het bellen: u belt ons.</p>
@@ -466,8 +520,8 @@ pages["/over-ons/"] = ("Over ons | ZonnepanelenNu Gouda",
  + stats_block() + why_block() + reviews_block(6, True) + brands_block() + offer_block() + cta_block())
 
 pages["/projecten/"] = ("Projecten | Recent opgeleverde zonnepanelen | ZonnepanelenNu",
- "Bekijk onze recent opgeleverde projecten: zonnepanelen op woningen en bedrijfspanden in Gouda, Rotterdam, Den Haag en omgeving.",
- hero("Recent <span>opgeleverd</span>", "Een greep uit onze laatste installaties in de regio Gouda, Rotterdam en Den Haag.", img(14), "Projecten", "Projecten", pcbar=False)
+ "Bekijk onze recent opgeleverde projecten: zonnepanelen en thuisbatterijen op woningen en bedrijfspanden.",
+ hero("Recent <span>opgeleverd</span>", "Een greep uit onze laatste installaties.", img(14), "Projecten", "Projecten", pcbar=False)
  + f"""<section><div class="wrap">{head("Projecten", "Benieuwd wat wij voor u kunnen doen?")}<div class="gal">"""
  + "".join(f'<figure class="{c} reveal"><img src="{img(i, True)}" alt="{t}" loading="lazy"><figcaption>{t}</figcaption></figure>' for i, c, t in
            [(2, "tall", "Zwarte panelen rond dakkapel"), (22, "", "Plat dak, opstelling"), (14, "", "Installatie op plat dak"), (6, "wide", "Bedrijfspand"),
@@ -484,8 +538,8 @@ pages["/blog/"] = ("Blog | Alles over zonnepanelen en thuisbatterijen | Zonnepan
  <div class="grid3" id="posts">{"".join(post_card(p) for p in POSTS)}</div><p id="nores" class="lead" style="display:none;margin-top:30px">Geen artikelen gevonden. Probeer een ander zoekwoord of bel ons: {TEL}.</p></div></section>"""
  + offer_block() + cta_block())
 
-pages["/contact/"] = ("Contact | Gratis offerte aanvragen | ZonnepanelenNu Gouda",
- f"Vraag een gratis offerte aan of neem contact op met ZonnepanelenNu in Gouda. Bel {TEL}.",
+pages["/contact/"] = ("Contact | Gratis offerte aanvragen | ZonnepanelenNu",
+ f"Vraag een gratis offerte aan of neem contact op met ZonnepanelenNu. Bel {TEL}.",
  hero("Neem <span>contact</span> op", "Zonnepanelen op uw huis of bedrijf? We ontzorgen u in het hele proces, van installatie tot garantie.", img(15), "Contact", "Contact", pcbar=False)
  + f"""<section style="padding-bottom:0"><div class="wrap"><div class="gl">
  <div class="reveal"><h3>Bel ons</h3><p><a href="tel:{TEL_HREF}" style="font-weight:700;color:var(--navy);font-size:20px">{TEL}</a><br>Voor een snelle vraag of afspraak.</p></div>
@@ -498,12 +552,12 @@ pages["/bedankt/"] = ("Bedankt voor uw aanvraag | ZonnepanelenNu", "We nemen zo 
 
 CITY_IMG = [30, 1, 4, 28, 29, 26, 16, 19, 32]
 CITY_TXT = {
- "Gouda": ("Ons kantoor zit in Gouda", "Onze vestiging ligt aan de Marconistraat in Gouda. Voor een adviesgesprek zijn we dus snel bij u, en voor service staan we om de hoek. In de oudere wijken zien we vaak kleinere schuine daken met dakkapellen en dakramen: daar bepaalt een goede indeling van de panelen hoeveel u opwekt."),
+ "Gouda": ("Ons kantoor zit in Gouda", "Onze vestiging ligt aan de Marconistraat in Gouda. In de oudere wijken zien we vaak kleinere schuine daken met dakkapellen en dakramen: daar bepaalt een goede indeling van de panelen hoeveel u opwekt."),
  "Rotterdam": ("Zonnepanelen op Rotterdamse daken", "In Rotterdam zijn veel daken plat. Bij een plat dak kiezen we een opstelling (zuid of oost-west) die het meeste uit de beschikbare ruimte haalt, en we letten op dakbedekking en windbelasting. Ook voor bedrijfspanden in de regio Rotterdam denken we graag mee."),
  "Den Haag": ("Zonnepanelen in Den Haag", "In Den Haag staan veel rijtjeswoningen en oudere panden. Bij sommige straten en gebouwen gelden regels voor beschermd stadsgezicht of welstand. Dat zoeken we vooraf voor u uit, zodat u niet voor verrassingen komt te staan."),
  "Zoetermeer": ("Zonnepanelen in Zoetermeer", "Zoetermeer is voor een groot deel na 1970 gebouwd, met veel rijtjeswoningen en schuine daken met dakramen. Wij plaatsten hier onder meer een installatie van 12 zonnepanelen. Die ervaring nemen we mee in uw advies."),
  "Alphen aan den Rijn": ("Zonnepanelen in Alphen aan den Rijn", "Ook in Alphen aan den Rijn en omgeving komen we bij u langs voor een advies aan huis. We kijken naar uw dak, de meterkast en uw verbruik, en rekenen door wat een installatie u oplevert."),
- "Bodegraven": ("Zonnepanelen in Bodegraven", "Bodegraven ligt dicht bij ons kantoor in Gouda. Dat betekent korte lijnen: een snelle afspraak voor het adviesgesprek en snelle hulp als er na de oplevering iets is."),
+ "Bodegraven": ("Zonnepanelen in Bodegraven", "Wilt u zonnepanelen of een thuisbatterij in Bodegraven? We komen bij u langs voor een adviesgesprek, rekenen de opbrengst en besparing door en regelen de installatie."),
  "Nieuwerkerk aan den IJssel": ("Zonnepanelen in Nieuwerkerk aan den IJssel", "In Nieuwerkerk aan den IJssel bestaan veel woningen uit rijtjeshuizen met een schuin dak. We kijken naar oriëntatie en schaduw en stellen een installatie voor die past bij uw verbruik."),
  "Waddinxveen": ("Zonnepanelen in Waddinxveen", "Voor huiseigenaren en ondernemers in Waddinxveen verzorgen we advies, installatie en service. Wij komen bij u langs, ook als u nog twijfelt of uw dak geschikt is."),
  "Woerden": ("Zonnepanelen in Woerden", "Wilt u zonnepanelen in Woerden? We beoordelen uw dak, rekenen de opbrengst voor u door en leggen de panelen. Ook voor een thuisbatterij bent u bij ons aan het juiste adres."),
@@ -521,11 +575,11 @@ for k, c in enumerate(CITIES):
      <p>Kwaliteit staat centraal: we werken alleen met A-merken en komen altijd langs om de situatie te beoordelen voordat we een offerte opstellen. Zo kan de installatie binnen {TIJD} na akkoord worden uitgevoerd.</p>
      <ul><li>Gratis dakscan en advies aan huis in {c}</li><li>5 jaar garantie op de installatie, tot 25 jaar op de panelen</li><li>Onderhoud en storingsservice na oplevering</li></ul>""")
      + reviews_block(3, True) + faq_block(cfaq) + offer_block()
-     + f'<section class="alt"><div class="wrap">{head("Ook actief in", "Zonnepanelen in de buurt")}<div class="cities">{near}</div></div></section>' + cta_block(), cfaq)
+     + f'<section class="alt"><div class="wrap">{head("Andere plaatsen", "Zonnepanelen en thuisbatterijen in andere plaatsen")}<div class="cities">{near}</div></div></section>' + cta_block(), cfaq)
 
 pages["/zonnepanelen-offerte-aanvragen/"] = ("Zonnepanelen offerte aanvragen | Gratis en vrijblijvend | ZonnepanelenNu",
  f"Vraag een gratis offerte aan voor zonnepanelen. Advies aan huis, offerte binnen 24 uur na het gesprek en 5 jaar garantie. Bel {TEL}.",
- hero("Vraag uw <span>offerte</span> aan", "Gratis en vrijblijvend. U ontvangt een offerte op maat met de verwachte opbrengst voor úw dak.", img(1), "Offerte aanvragen", "Offerte aanvragen")
+ hero("Vraag uw <span>offerte</span> aan", "Gratis en vrijblijvend. U ontvangt een offerte op maat met de verwachte opbrengst voor uw dak.", img(1), "Offerte aanvragen", "Offerte aanvragen")
  + trust() + steps_block() + reviews_block(3, True) + offer_block("Vraag uw gratis offerte aan") + faq_block(FAQ[:5], False) + cta_block(), FAQ[:5])
 
 pages["/zonnepanelen-laten-installeren-door-zonnepanelennu/"] = ("Zonnepanelen laten installeren | Van advies tot service | ZonnepanelenNu",
@@ -619,8 +673,8 @@ for i, q in enumerate(POSTS):
               f'<a href="/salderingsregeling-2027/">Lees wat dat nu betekent</a>.</p>')
     body = (small_hero(f'<a href="/">Home</a> / <a href="/blog/">Blog</a> / {e(short)}', f'{e(q["cat"])} · {nl_date(q["date"])} · {q["mins"]} min leestijd', e(q["title"]), img(HERO_IMGS[i % len(HERO_IMGS)]))
             + f"""<section><div class="wrap art"><article class="prose">{notice}{clean(q["html"], q["title"])}
- <div class="artcta"><h3>Wilt u weten wat dit voor uw dak betekent?</h3><p>Vraag een gratis dakscan aan. We komen bij u langs en rekenen het voor u door.</p><a class="btn btn-amber" href="#offerte">Gratis dakscan</a></div></article>
- <aside class="side"><div class="sidecard"><h3>Gratis dakscan</h3><p>Weet u binnen een minuut of uw dak geschikt is? Wij komen bij u langs voor een advies op maat.</p><a class="btn btn-amber" href="#offerte">Start de dakscan</a><a class="btn btn-line" href="tel:{TEL_HREF}">{ic("phone")} {TEL}</a><p class="hnote2">{stars()} {RATING} · {NREV} Google-reviews</p></div></aside></div></section>"""
+ <div class="artcta"><h3>Wilt u weten wat dit voor u betekent?</h3><p>Vraag gratis advies aan. We komen bij u langs en rekenen het voor u door.</p><a class="btn btn-amber" href="#offerte">Gratis advies</a></div></article>
+ <aside class="side"><div class="sidecard"><h3>Gratis advies</h3><p>Weten of een thuisbatterij of zonnepanelen bij u passen? Wij komen bij u langs voor een advies op maat.</p><a class="btn btn-amber" href="#offerte">Vraag advies aan</a><a class="btn btn-line" href="tel:{TEL_HREF}">{ic("phone")} {TEL}</a><p class="hnote2">{stars()} {RATING} · {NREV} Google-reviews</p></div></aside></div></section>"""
             + f'<section class="alt"><div class="wrap">{head("Meer lezen", "Gerelateerde artikelen")}<div class="grid3">{"".join(post_card(x) for x in rel)}</div></div></section>'
             + offer_block() + cta_block())
     pages[q["path"]] = (f'{q["title"]} | ZonnepanelenNu', q["excerpt"], body)
