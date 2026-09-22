@@ -1,5 +1,127 @@
 {
   "trailingSlash": true,
+  "redirects": [
+    {
+      "source": "/accu-om-zonne-energie-op-te-slaan-hoe-werkt-het/",
+      "destination": "/de-voordelen-van-een-thuisbatterij-voor-zonnepanelen/",
+      "permanent": true
+    },
+    {
+      "source": "/de-meest-gemaakte-fouten-bij-zonnepanelen-hoe-ze-te-voorkomen/",
+      "destination": "/waar-op-letten-bij-aankoop-van-zonnepanelen-een-complete-gids/",
+      "permanent": true
+    },
+    {
+      "source": "/de-voordelen-van-zonnepanelen-in-een-stedelijke-omgeving-zoals-rotterdam/",
+      "destination": "/blog/",
+      "permanent": true
+    },
+    {
+      "source": "/hebben-8-zonnepanelen-zin/",
+      "destination": "/hoeveel-zonnepanelen-heb-je-nodig-voor-5000-kwh-een-gids-van-zonnepanelennu/",
+      "permanent": true
+    },
+    {
+      "source": "/hoe-oud-mag-je-dak-zijn-voor-zonnepanelen/",
+      "destination": "/nadelen-van-zonnepanelen-op-een-plat-dak-wat-u-moet-weten/",
+      "permanent": true
+    },
+    {
+      "source": "/hoe-snel-verdien-ik-mijn-zonnepanelen-terug-in-2024/",
+      "destination": "/zijn-zonnepanelen-nog-zinvol-om-in-te-investeren/",
+      "permanent": true
+    },
+    {
+      "source": "/hoeveel-kosten-10-zonnepanelen/",
+      "destination": "/wat-kosten-zonnepanelen-in-2025/",
+      "permanent": true
+    },
+    {
+      "source": "/hoeveel-scheelt-zonnepanelen-op-je-energierekening/",
+      "destination": "/zijn-zonnepanelen-nog-zinvol-om-in-te-investeren/",
+      "permanent": true
+    },
+    {
+      "source": "/hoeveel-subsidie-krijg-je-in-2024-voor-zonnepanelen/",
+      "destination": "/wat-kosten-zonnepanelen-in-2025/",
+      "permanent": true
+    },
+    {
+      "source": "/hoeveel-zonnepanelen-heb-ik-nodig-voor-mijn-woning-in-rotterdam/",
+      "destination": "/hoeveel-zonnepanelen-heb-je-nodig-voor-5000-kwh-een-gids-van-zonnepanelennu/",
+      "permanent": true
+    },
+    {
+      "source": "/is-de-productie-van-zonnepanelen-milieuvriendelijk/",
+      "destination": "/is-het-gebruik-van-een-thuisbatterij-goed-voor-het-milieu/",
+      "permanent": true
+    },
+    {
+      "source": "/is-een-thuisaccu-rendabel-een-duidelijke-uitleg/",
+      "destination": "/wat-kost-een-accu-voor-zonnepanelen/",
+      "permanent": true
+    },
+    {
+      "source": "/is-het-nog-rendabel-om-zonnepanelen-te-plaatsen/",
+      "destination": "/zijn-zonnepanelen-nog-zinvol-om-in-te-investeren/",
+      "permanent": true
+    },
+    {
+      "source": "/is-het-slim-om-een-accu-te-plaatsen-voor-je-zonnepanelen/",
+      "destination": "/de-voordelen-van-een-thuisbatterij-voor-zonnepanelen/",
+      "permanent": true
+    },
+    {
+      "source": "/waar-moet-u-op-letten-bij-de-aanschaf-van-zonnepanelen/",
+      "destination": "/waar-op-letten-bij-aankoop-van-zonnepanelen-een-complete-gids/",
+      "permanent": true
+    },
+    {
+      "source": "/waarom-investeren-in-zonnepanelen/",
+      "destination": "/zijn-zonnepanelen-nog-zinvol-om-in-te-investeren/",
+      "permanent": true
+    },
+    {
+      "source": "/waarom-is-rotterdam-centraal-duurzaam/",
+      "destination": "/blog/",
+      "permanent": true
+    },
+    {
+      "source": "/waarom-juist-zonnepanelen-in-het-voorjaar-plaatsen/",
+      "destination": "/wat-is-het-beste-moment-om-zonnepanelen-te-installeren/",
+      "permanent": true
+    },
+    {
+      "source": "/wat-is-de-beste-zonnepanelen-leverancier/",
+      "destination": "/waar-op-letten-bij-aankoop-van-zonnepanelen-een-complete-gids/",
+      "permanent": true
+    },
+    {
+      "source": "/wat-kost-het-om-zonnepanelen-te-laten-plaatsen/",
+      "destination": "/wat-kosten-zonnepanelen-in-2025/",
+      "permanent": true
+    },
+    {
+      "source": "/wat-verandert-er-in-2024-voor-zonnepanelen/",
+      "destination": "/salderingsregeling-2027/",
+      "permanent": true
+    },
+    {
+      "source": "/wat-zijn-de-beste-zonnepanelen-van-2024-een-gids-van-zonnepanelennu/",
+      "destination": "/waar-op-letten-bij-aankoop-van-zonnepanelen-een-complete-gids/",
+      "permanent": true
+    },
+    {
+      "source": "/zonnepanelen-op-een-bitumen-dak-wat-zijn-de-mogelijkheden/",
+      "destination": "/nadelen-van-zonnepanelen-op-een-plat-dak-wat-u-moet-weten/",
+      "permanent": true
+    },
+    {
+      "source": "/zonnepanelen-trends-en-ontwikkelingen-in-2025/",
+      "destination": "/salderingsregeling-2027/",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
