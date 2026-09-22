@@ -550,7 +550,7 @@ def battery_steps():
 pages["/thuisbatterij/"] = ("Thuisbatterij installeren | Zonnestroom opslaan | ZonnepanelenNu",
  "Sla uw zonnestroom op met een thuisbatterij en gebruik hem wanneer u wilt. Eerlijk advies aan huis en installatie door gecertificeerde vakmannen. Vraag gratis advies aan.",
  hero("Gebruik uw zonnestroom wanneer <span>u</span> wilt", "Een thuisbatterij bewaart uw overschot voor de avond, in plaats van dat u het goedkoop teruglevert.", img(35), "Thuisbatterij", "Thuisbatterij")
- + trust() + battery_usp() + battery_steps()
+ + trust() + battery_usp() + battery_steps() + calc_block()
  + prose("""<span class="eyebrow">Kosten en rendement</span><h2>Wat kost een thuisbatterij, en wanneer verdient hij zich terug?</h2>
  <p>Dat hangt af van de capaciteit, het merk en de installatie. Indicatief ligt de investering tussen ongeveer € 4.000 en € 10.000. De terugverdientijd ligt indicatief tussen 5 en 10 jaar, maar verschilt sterk per huishouden: uw avondverbruik, uw zonnepanelen en uw energiecontract bepalen het resultaat.</p>
  <p>Daarom beloven wij geen standaardcijfers. In een gratis adviesgesprek bekijken we uw meterkast, omvormer en verbruik, en rekenen we uit of een batterij bij u loont. Zo niet, dan zeggen we dat ook.</p>
@@ -563,7 +563,7 @@ pages["/thuisbatterij/"] = ("Thuisbatterij installeren | Zonnestroom opslaan | Z
 pages["/zonnepanelen-met-batterij-accu-kopen/"] = ("Zonnepanelen met thuisbatterij kopen | ZonnepanelenNu",
  "Zonnepanelen én een thuisbatterij in één keer laten plaatsen? Persoonlijk advies aan huis en een offerte op maat van ZonnepanelenNu.",
  hero("Zonnepanelen met <span>thuisbatterij</span>", "Zonnepanelen met batterij plaatsen? Eén adviesgesprek, één offerte, één partner.", img(39), "Zonnepanelen met batterij", "Combinatiepakket")
- + trust()
+ + trust() + calc_block()
  + prose("""<span class="eyebrow">Alles in één keer</span><h2>Waarom zonnepanelen en batterij samen?</h2>
  <p>Wanneer u ze tegelijk laat plaatsen, ontwerpen we de installatie als één geheel: het aantal panelen, de omvormer en de batterij zijn op elkaar afgestemd. Dat is praktisch, en u praat met één partner als er iets is.</p>
  <h2>Hoe werkt het samen?</h2>
@@ -782,7 +782,7 @@ for i, q in enumerate(POSTS):
  <h2 id="veelgestelde-vragen">Veelgestelde vragen</h2><div class="faqlist">{faq_html}</div>
  <div class="artcta"><h3>Wilt u weten wat dit voor u betekent?</h3><p>Vraag gratis advies aan. We komen bij u langs en rekenen het voor u door, met uw eigen verbruik en zonder verplichtingen.</p><a class="btn btn-amber" href="#offerte">Gratis advies</a></div>
  <div class="authorbox"><div class="av">Z</div><div><b>Team ZonnepanelenNu</b><small>Advies en installatie van zonnepanelen en thuisbatterijen. Cijfers in dit artikel zijn indicatief en kunnen afwijken per situatie.</small></div></div></article>
- <aside class="side"><div class="sidecard"><h3>Gratis advies</h3><p>Weten of een thuisbatterij of zonnepanelen bij u passen? Wij komen bij u langs voor een advies op maat.</p><a class="btn btn-amber" href="#offerte">Vraag advies aan</a><a class="btn btn-line" href="tel:{TEL_HREF}">{ic("phone")} {TEL}</a><p class="hnote2">{stars()} {RATING} · {NREV} Google-reviews</p></div></aside></div></section>"""
+ <aside class="side"><div class="sidecard"><h3>Gratis advies</h3><p>Weten of een thuisbatterij of zonnepanelen bij u passen? Wij komen bij u langs voor een advies op maat.</p><a class="btn btn-amber" href="#offerte">Vraag advies aan</a><a class="btn btn-line" href="tel:{TEL_HREF}">{ic("phone")} {TEL}</a><p class="hnote2">{stars()} {RATING} Google-reviews</p></div></aside></div></section>"""
             + f'<section class="alt"><div class="wrap">{head("Meer lezen", "Gerelateerde artikelen")}<div class="grid3">{"".join(post_card(x) for x in rel)}</div></div></section>'
             + offer_block() + cta_block())
     pages[q["path"]] = (f'{q["title"]} | ZonnepanelenNu', q["desc"], body, q["faq"])
@@ -824,8 +824,7 @@ if __name__ == "__main__":
         faq = v[3] if len(v) > 3 else None
         o = PAGE_OPTS.get(p, {})
         out = layout(p, title, desc, body, faq, og=o.get("og"), extra=o.get("extra"), noindex=o.get("noindex", False))
-        if p == "/":   # homepage: geen subkopjes (eyebrows) boven de titels
-            out = re.sub(r'<span class="eyebrow">.*?</span>(<br>)?', '', out)
+        out = re.sub(r'<span class="eyebrow">.*?</span>(<br>)?', '', out)   # sitebreed: geen subkopjes (eyebrows) boven de titels
         if 'id="offerte"' not in out:   # pagina zonder formulier: knoppen naar het formulier op /contact/
             out = out.replace('href="#offerte"', 'href="/contact/#offerte"')
         write(p, out)
