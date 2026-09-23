@@ -218,7 +218,7 @@ def layout(path, title, desc, body, faq=None, og=None, extra=None, noindex=False
 <meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}"><meta property="og:type" content="website"><meta property="og:image" content="{SITE}{og or img(7)}">
 <link rel="icon" href="/assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&family=Roboto+Slab:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/style.css">
 {jsonld(path, faq, extra)}
 </head>
@@ -304,7 +304,7 @@ def calc_block():
   <div class="calc-in">
    <div class="calc-row">
     <label for="c-verbruik">Jaarverbruik <b class="calc-val" id="cv-verbruik">3.500 kWh</b></label>
-    <input type="range" id="c-verbruik" min="1500" max="8000" step="100" value="3500">
+    <input type="range" id="c-verbruik" min="1500" max="9000" step="100" value="3500">
     <small>Staat op uw jaarafrekening of in uw energie-app.</small>
    </div>
    <div class="calc-row">
@@ -327,7 +327,7 @@ def calc_block():
   </div>
   <div class="calc-out">
    <span class="eyebrow">Geadviseerde batterij</span>
-   <div class="calc-battery"><b id="co-kwh">–</b><span>kWh</span></div>
+   <div class="calc-battery"><b id="co-kwh">–</b><span id="co-unit">kWh</span></div>
    <p class="calc-model" id="co-model">&nbsp;</p>
    <div class="calc-grid">
     <div><span>Besparing jaar 1</span><b id="co-besparing">–</b></div>
@@ -335,10 +335,61 @@ def calc_block():
     <div><span>Investering (netto)</span><b id="co-investering">–</b></div>
    </div>
    <a class="btn btn-amber" href="#offerte">Persoonlijk advies aanvragen</a>
-   <p class="calc-note">Indicatieve berekening op basis van ± 950 kWh opbrengst per kWp per jaar, een stroomprijs van € 0,28 en een terugleververgoeding van € 0,08 per kWh. Geadviseerd op AEG Solarcube-capaciteiten (4,8 / 9,6 / 14,4 kWh). Definitieve cijfers volgen uit een gratis adviesgesprek aan huis.</p>
+   <p class="calc-note">Indicatieve richtwaarden op basis van uw jaarverbruik: bij 5 kWh een besparing van € 400+ per jaar, en bij elke 5 kWh extra ± € 250 per jaar erbij. De investering is een vanaf-bedrag en hangt af van merk, type en uw situatie. Het merk en type kiezen we samen met u tijdens het gratis adviesgesprek aan huis.</p>
   </div>
  </div>
 </div></section>"""
+
+
+def day_anim():
+    # schematische dag/nacht-animatie (inline SVG + CSS, geen externe bestanden; werkt ook in een WordPress HTML-widget)
+    def pt(t, off=0):
+        x, y = 380 + 130 * t, 190 + 80 * t
+        return x - 0.52 * off, y + 0.85 * off
+    panels = ""
+    for a, b in ((0.14, 0.34), (0.38, 0.58), (0.62, 0.82)):
+        p1, p2, p3, p4 = pt(a, 5), pt(b, 5), pt(b, 17), pt(a, 17)
+        panels += '<polygon class="dv-panel" points="' + " ".join(f"{x:.0f},{y:.0f}" for x, y in (p1, p2, p3, p4)) + '"/>'
+    dots_day = "".join(f'<circle r="5" class="dv-dot dv-dot-day"><animateMotion dur="1.8s" begin="{d}s" repeatCount="indefinite" path="{p}"/></circle>'
+                       for p in ("M470 250 C520 246 565 262 596 296", "M430 232 L420 322") for d in (0, 0.9))
+    dots_night = "".join(f'<circle r="5" class="dv-dot dv-dot-night"><animateMotion dur="1.6s" begin="{d}s" repeatCount="indefinite" path="M560 352 L470 352"/></circle>' for d in (0, 0.8))
+    return f"""<div class="dayviz reveal" role="img" aria-label="Schematische animatie van een dag: overdag laden de zonnepanelen de thuisbatterij, 's avonds en 's nachts voorziet de batterij het huis van opgeslagen zonnestroom.">
+ <svg viewBox="0 0 800 460" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <defs><linearGradient id="dvday" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fd3f4"/><stop offset="1" stop-color="#e6f5fb"/></linearGradient>
+  <linearGradient id="dvnight" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b2a3b"/><stop offset="1" stop-color="#16465f"/></linearGradient></defs>
+  <rect width="800" height="460" fill="url(#dvnight)"/>
+  <g class="dv-stars" fill="#fff"><circle cx="90" cy="70" r="2"/><circle cx="210" cy="120" r="1.6"/><circle cx="330" cy="50" r="2"/><circle cx="560" cy="80" r="1.8"/><circle cx="690" cy="140" r="2"/><circle cx="740" cy="60" r="1.6"/><circle cx="150" cy="190" r="1.4"/><circle cx="640" cy="40" r="1.6"/></g>
+  <rect class="dv-daysky" width="800" height="460" fill="url(#dvday)"/>
+  <g class="dv-sun"><circle r="46" fill="#e9a735" opacity=".22"/><circle r="34" fill="#e9a735"/></g>
+  <g class="dv-moon"><path d="M6 -26 A26 26 0 1 0 6 26 A20 20 0 1 1 6 -26Z" fill="#f4f8fb"/></g>
+  <rect y="400" width="800" height="60" fill="#2d6a4f" opacity=".85"/>
+  <rect x="270" y="270" width="220" height="130" fill="#fff" stroke="#c9d8e2" stroke-width="2"/>
+  <polygon points="250,272 380,190 510,272" fill="#0b2a3b"/>
+  {panels}
+  <rect class="dv-win" x="300" y="310" width="34" height="34" rx="3" fill="#e9a735"/><rect class="dv-win" x="426" y="310" width="34" height="34" rx="3" fill="#e9a735"/>
+  <rect x="350" y="340" width="60" height="60" rx="3" fill="#139acf" opacity=".9"/>
+  <rect x="560" y="300" width="70" height="100" rx="10" fill="#fff" stroke="#0b2a3b" stroke-width="4"/><rect x="583" y="291" width="24" height="10" rx="3" fill="#0b2a3b"/>
+  <rect class="dv-fill" x="568" y="308" width="54" height="84" rx="6" fill="#e9a735"/>
+  <text x="595" y="425" text-anchor="middle" font-size="15" font-weight="700" fill="#fff" font-family="Nunito,sans-serif">Thuisbatterij</text>
+  <g class="dv-flow-day">{dots_day}</g><g class="dv-flow-night">{dots_night}</g>
+ </svg>
+ <div class="dv-cap"><span class="dv-cap-day"><b>Overdag</b> · de panelen laden de batterij</span><span class="dv-cap-night"><b>&rsquo;s Avonds en &rsquo;s nachts</b> · de batterij voorziet het huis</span></div>
+ <p class="dv-note">Schematische weergave van een dag</p>
+</div>"""
+
+
+def compare_block():
+    rows = [("Stroom van uw panelen overdag", "Direct in huis gebruikt", "Direct in huis gebruikt"),
+            ("Wat u overdag overhoudt", "Gaat terug het net in voor een lage vergoeding", "Blijft bewaard in uw batterij"),
+            ("Als de zon weg is", "U koopt stroom in bij uw leverancier", "U gebruikt uw eigen opgeslagen stroom"),
+            ("Vanaf 1 januari 2027", "Teruglevering wordt minder waard", "Minder terugleveren, meer zelf gebruiken"),
+            ("Bij een stroomstoring", "Huis zonder stroom", "Noodstroom mogelijk, afhankelijk van het systeem"),
+            ("Overzicht", "Hangt af van uw omvormer", "Live in de app op uw telefoon (monitoring inbegrepen)"),
+            ("Voordeel per jaar", "&ndash;", "Vanaf € 400 bij 5 kWh, en ± € 250 extra per 5 kWh")]
+    body = "".join(f"<tr><th scope='row'>{a}</th><td>{b}</td><td><span class='ck'>&#10003;</span>{c}</td></tr>" for a, b, c in rows)
+    return f"""<section class="alt"><div class="wrap">{head("Vergelijking", "Zo groot is het verschil met een thuisbatterij", "Dezelfde zonnepanelen op uw dak, maar een heel andere stroomdag. Dit verandert er voor u.", True)}
+ <div class="cmp-wrap reveal"><table class="cmp"><thead><tr><th></th><th>Zonder thuisbatterij</th><th class="on">Met thuisbatterij</th></tr></thead><tbody>{body}</tbody></table></div>
+ <p class="cmp-note">Indicatief: wat u precies bespaart hangt af van uw verbruik, installatie en energiecontract. De bedragen zijn richtwaarden.</p></div></section>"""
 
 
 def battery_block():
@@ -348,7 +399,7 @@ def battery_block():
     steps = "".join(f"<div class='reveal'><h3>{t}</h3><p>{d}</p></div>" for t, d in st)
     return f"""<section class="alt" id="thuisbatterij"><div class="wrap">
  <div class="split">
-  <div class="ph reveal"><img src="{img(35)}" alt="AEG-thuisbatterij naast de meterkast" loading="lazy"></div>
+  {day_anim()}
   <div class="reveal"><span class="eyebrow">Thuisbatterij</span><h2>Gebruik ’s avonds uw eigen zonnestroom</h2>
    <p>Zonnepanelen leveren overdag, maar u gebruikt het meest in de ochtend en de avond. Een thuisbatterij overbrugt dat gat. Zo betaalt u minder voor stroom uit het net, en verliest u minder aan teruglevering.</p>
    <ul class="list"><li>Minder stroom inkopen, meer zelf gebruiken</li><li>Minder afhankelijk van terugleververgoedingen</li><li>Ook te combineren met bestaande zonnepanelen (afhankelijk van uw installatie)</li><li>Advies met eerlijke berekening, zonder standaardbeloftes</li></ul>
@@ -502,7 +553,7 @@ pages["/"] = ("Thuisbatterij en zonnepanelen | Advies aan huis | ZonnepanelenNu"
  hero("Gebruik uw eigen zonnestroom <span>wanneer u wilt</span>",
       "Per 1 januari 2027 stopt de salderingsregeling. Een thuisbatterij bewaart uw overschot voor de avond, zodat u minder inkoopt en minder verliest bij terugleveren. Wij adviseren, installeren en blijven bereikbaar.",
       img(38), eyebrow="Thuisbatterijen en zonnepanelen")
- + trust() + pain_block() + calc_block() + battery_block() + saldering_block() + how_block(7, False) + services_block() + why_block() + stats_block()
+ + trust() + calc_block() + pain_block() + compare_block() + battery_block() + saldering_block() + how_block(7, False) + services_block() + why_block() + stats_block()
  + gallery_block() + reviews_block(3) + steps_block() + brands_block() + faq_block(FAQ_HOME) + offer_block() + latest_block(3, ("batterij", "accu"), "Alles over thuisbatterijen") + gloss_block() + cities_block() + cta_block(),
  FAQ_HOME)
 

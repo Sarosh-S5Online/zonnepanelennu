@@ -111,63 +111,42 @@
     });
   }
 
-  // Batterijcalculator (indicatief; zie de toelichting onder de uitkomst)
+  // Batterijcalculator: richtwaarden van de eigenaar (jaarverbruik -> batterijgrootte, besparing en investering)
   var calcRoot = document.getElementById('calculator');
   if (calcRoot) {
     var $ = function (id) { return document.getElementById(id); };
     var fmtInt = function (n) { return Math.round(n).toLocaleString('nl-NL'); };
-    var fmtEuro = function (n) { return '€ ' + fmtInt(n); };
-    var fmtKwh = function (n) { return n.toLocaleString('nl-NL', { minimumFractionDigits: 1, maximumFractionDigits: 1 }); };
-
-    var PV_PER_KWP = 950;     // kWh/kWp/jaar, gemiddelde Nederlandse zoninstraling
-    var WP_PER_PANEEL = 400;  // ± Wp per paneel
-    var PRIJS_IN = 0.28;      // € per ingekochte kWh (indicatief)
-    var PRIJS_TERUG = 0.08;   // terugleververgoeding per kWh (indicatief, na saldering)
-    var TIERS = [
-      { kwh: 4.8, model: 'AEG Solarcube 4,8 kWh' },
-      { kwh: 9.6, model: 'AEG Solarcube 9,6 kWh' },
-      { kwh: 14.4, model: 'AEG Solarcube 14,4 kWh' }
-    ];
+    // vanaf welk jaarverbruik (kWh) hoort welke batterijgrootte (kWh); onder de eerste drempel: 5 kWh; vanaf 7.300: advies op maat
+    var STAPPEN = [[2700, 10], [3600, 15], [5300, 20], [6500, 25]];
+    var OP_MAAT = 7300;
+    var GROTTES = [5, 10, 15, 20, 25];
 
     function calc() {
       var verbruik = parseFloat($('c-verbruik').value);
       var kwp = parseFloat($('c-kwp').value);
-      var ev = $('c-ev').checked, wp = $('c-wp').checked, dyn = $('c-dyn').checked, btw = $('c-btw').checked;
-
+      var beide = $('c-ev').checked && $('c-wp').checked;
       $('cv-verbruik').textContent = fmtInt(verbruik) + ' kWh';
       $('cv-kwp').textContent = kwp.toLocaleString('nl-NL', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + ' kWp';
-      var panelen = Math.max(1, Math.round((kwp * 1000) / WP_PER_PANEEL));
-      $('cv-panelen').textContent = kwp > 0 ? ('≈ ' + panelen + ' panelen (± ' + WP_PER_PANEEL + ' Wp per paneel)') : 'Nog geen zonnepanelen';
+      $('cv-panelen').textContent = kwp > 0 ? ('≈ ' + Math.max(1, Math.round((kwp * 1000) / 400)) + ' panelen (± 400 Wp per paneel)') : 'Nog geen zonnepanelen';
 
-      var pvOpbrengst = kwp * PV_PER_KWP;
-      var zelfverbruikAandeel = 0.30;
-      var extraJaarverbruik = (ev ? 1200 : 0) + (wp ? 1500 : 0);
-      var avondbehoefte = (verbruik * (1 - zelfverbruikAandeel) * 0.6) + extraJaarverbruik;
-      var overschot = Math.max(0, pvOpbrengst - (verbruik * zelfverbruikAandeel));
-      var bruikbaar = Math.min(overschot, avondbehoefte);
+      var kwh = 5, custom = verbruik >= OP_MAAT;
+      for (var i = 0; i < STAPPEN.length; i++) { if (verbruik >= STAPPEN[i][0]) kwh = STAPPEN[i][1]; }
+      if (beide && !custom) { kwh += 5; if (GROTTES.indexOf(kwh) < 0) custom = true; }
 
-      var ruweCapaciteit = bruikbaar / 280; // effectieve volle-cyclusdagen per jaar (NL-klimaat)
-      if (dyn) ruweCapaciteit *= 1.15;      // dynamisch contract: iets grotere batterij is de moeite waard
-      var tier = TIERS[0];
-      for (var i = 0; i < TIERS.length; i++) { if (ruweCapaciteit > TIERS[i].kwh * 0.75) tier = TIERS[i]; }
-      var grootVerbruik = ruweCapaciteit > TIERS[2].kwh * 1.15;
-
-      var extraZelfverbruik = Math.min(bruikbaar, tier.kwh * 300);
-      var besparing = extraZelfverbruik * (PRIJS_IN - PRIJS_TERUG);
-      if (dyn) besparing += tier.kwh * 0.7 * 60; // indicatieve prijsarbitrage, zie ook het voorbeeld bij "Slim handelen"
-
-      var investeringExcl = 2200 + tier.kwh * 580;
-      var investeringNetto = btw ? investeringExcl : investeringExcl * 1.21;
-      var terugverdientijd = besparing > 0 ? investeringNetto / besparing : 0;
-
-      $('co-kwh').textContent = fmtKwh(tier.kwh);
-      $('co-model').textContent = tier.model + (grootVerbruik ? ' (of groter — bespreken we in het adviesgesprek)' : '');
-      $('co-besparing').textContent = fmtEuro(besparing) + ' / jaar';
-      var terugStr = '–';
-      if (terugverdientijd > 0 && terugverdientijd <= 25) terugStr = terugverdientijd.toLocaleString('nl-NL', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + ' jaar';
-      else if (terugverdientijd > 25) terugStr = 'Nog niet rendabel';
-      $('co-terug').textContent = terugStr;
-      $('co-investering').textContent = fmtEuro(investeringNetto);
+      if (custom) {
+        $('co-kwh').textContent = 'Op maat'; $('co-unit').textContent = '';
+        $('co-model').textContent = 'Bij dit verbruik rekenen we de juiste opzet samen met u uit.';
+        $('co-besparing').textContent = 'Op aanvraag'; $('co-terug').textContent = 'Op aanvraag'; $('co-investering').textContent = 'Op aanvraag';
+        return;
+      }
+      var stap = kwh / 5 - 1;                    // 0 bij 5 kWh, 1 bij 10 kWh, ...
+      var besparing = 400 + 250 * stap;          // 5 kWh: € 400+, elke 5 kWh erbij: € 250 extra per jaar
+      var investering = 3000 + 1500 * stap;      // 5 kWh: € 3.000, elke 5 kWh erbij: € 1.500 extra
+      $('co-kwh').textContent = kwh; $('co-unit').textContent = 'kWh';
+      $('co-model').textContent = 'Merk en type bespreken we in het adviesgesprek' + (beide ? ' (incl. 5 kWh extra voor auto + warmtepomp)' : '') + '.';
+      $('co-besparing').textContent = '€ ' + fmtInt(besparing) + '+ / jaar';
+      $('co-terug').textContent = '± ' + Math.round(investering / besparing) + ' jaar';
+      $('co-investering').textContent = '€ ' + fmtInt(investering) + '+';
     }
 
     ['c-verbruik', 'c-kwp', 'c-ev', 'c-wp', 'c-dyn', 'c-btw', 'c-or', 'c-aan'].forEach(function (id) {

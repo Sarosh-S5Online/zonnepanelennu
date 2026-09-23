@@ -9,7 +9,7 @@
 <meta property="og:title" content="Thuisbatterij installeren | Zonnestroom opslaan | ZonnepanelenNu"><meta property="og:description" content="Sla uw zonnestroom op met een thuisbatterij en gebruik hem wanneer u wilt. Eerlijk advies aan huis en installatie door gecertificeerde vakmannen. Vraag gratis advies aan."><meta property="og:type" content="website"><meta property="og:image" content="https://zonnepanelennu.nl/assets/img/f/07-pannendak-close.webp">
 <link rel="icon" href="/assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&family=Roboto+Slab:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/style.css">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "HomeAndConstructionBusiness", "name": "ZonnepanelenNu B.V.", "url": "https://zonnepanelennu.nl", "telephone": "+31182607948", "email": "info@zonnepanelennu.nl", "image": "https://zonnepanelennu.nl/assets/img/f/07-pannendak-close.webp", "address": {"@type": "PostalAddress", "streetAddress": "Marconistraat 70G", "postalCode": "2809PE", "addressLocality": "Gouda", "addressCountry": "NL"}, "areaServed": {"@type": "Country", "name": "Nederland"}, "identifier": "KvK 85470406", "aggregateRating": {"@type": "AggregateRating", "ratingValue": "4.8", "reviewCount": "43"}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Loont een thuisbatterij nog nu de salderingsregeling stopt?", "acceptedAnswer": {"@type": "Answer", "text": "In veel gevallen wel, en juist dan. Vanaf 1 januari 2027 ontvangt u voor teruggeleverde stroom een lagere vergoeding (tot 2030 minimaal 50% van het kale leveringstarief), terwijl stroom die u ’s avonds inkoopt duur blijft. Een batterij bewaart uw overschot zodat u het zelf gebruikt. Of het bij u loont, hangt af van uw verbruik en energiecontract. Dat rekenen we vooraf voor u door."}}, {"@type": "Question", "name": "Wat kost een thuisbatterij?", "acceptedAnswer": {"@type": "Answer", "text": "Dat hangt af van de capaciteit, het merk en de installatie. Indicatief ligt de investering tussen ongeveer € 4.000 en € 10.000. Na het adviesgesprek ontvangt u een offerte met de exacte prijs, zonder verplichtingen."}}, {"@type": "Question", "name": "Hoe snel verdien ik een thuisbatterij terug?", "acceptedAnswer": {"@type": "Answer", "text": "Indicatief tussen de 5 en 10 jaar, maar dat verschilt sterk per huishouden. Uw avondverbruik, uw zonnepanelen en uw energiecontract bepalen het resultaat. Daarom rekenen we het voor uw situatie uit en beloven we geen standaardcijfers."}}, {"@type": "Question", "name": "Kan een batterij bij mijn bestaande zonnepanelen?", "acceptedAnswer": {"@type": "Answer", "text": "In veel gevallen wel. Het hangt af van uw omvormer en installatie. Tijdens het adviesgesprek bekijken we uw meterkast en omvormer en zeggen we eerlijk of het kan en of het loont."}}, {"@type": "Question", "name": "Welke capaciteit (kWh) heb ik nodig?", "acceptedAnswer": {"@type": "Answer", "text": "Dat hangt af van hoeveel stroom u ’s avonds en ’s nachts gebruikt en hoeveel uw panelen overdag overhouden. Te klein laat opbrengst liggen, te groot kost onnodig geld. We berekenen de juiste maat voor u."}}, {"@type": "Question", "name": "Werkt de batterij ook bij stroomuitval?", "acceptedAnswer": {"@type": "Answer", "text": "Dat hangt van het systeem af. Sommige thuisbatterijen kunnen als noodstroom dienen, andere niet. We bespreken vooraf wat u wilt en welk model daarbij past."}}, {"@type": "Question", "name": "Is een thuisbatterij veilig?", "acceptedAnswer": {"@type": "Answer", "text": "Moderne thuisbatterijen hebben ingebouwde beveiligingen. Wij werken met A-merken en laten de batterij installeren door gecertificeerde vakmannen."}}, {"@type": "Question", "name": "Welke garantie krijg ik?", "acceptedAnswer": {"@type": "Answer", "text": "5 jaar garantie op onze installatie, plus de fabrieksgarantie van het gekozen merk (bij thuisbatterijen vaak 10 jaar). De exacte voorwaarden hangen af van het model dat we voor u kiezen."}}]}</script>
 </head>
@@ -31,7 +31,7 @@
   <div class="calc-in">
    <div class="calc-row">
     <label for="c-verbruik">Jaarverbruik <b class="calc-val" id="cv-verbruik">3.500 kWh</b></label>
-    <input type="range" id="c-verbruik" min="1500" max="8000" step="100" value="3500">
+    <input type="range" id="c-verbruik" min="1500" max="9000" step="100" value="3500">
     <small>Staat op uw jaarafrekening of in uw energie-app.</small>
    </div>
    <div class="calc-row">
@@ -54,7 +54,7 @@
   </div>
   <div class="calc-out">
    
-   <div class="calc-battery"><b id="co-kwh">–</b><span>kWh</span></div>
+   <div class="calc-battery"><b id="co-kwh">–</b><span id="co-unit">kWh</span></div>
    <p class="calc-model" id="co-model">&nbsp;</p>
    <div class="calc-grid">
     <div><span>Besparing jaar 1</span><b id="co-besparing">–</b></div>
@@ -62,7 +62,7 @@
     <div><span>Investering (netto)</span><b id="co-investering">–</b></div>
    </div>
    <a class="btn btn-amber" href="#offerte">Persoonlijk advies aanvragen</a>
-   <p class="calc-note">Indicatieve berekening op basis van ± 950 kWh opbrengst per kWp per jaar, een stroomprijs van € 0,28 en een terugleververgoeding van € 0,08 per kWh. Geadviseerd op AEG Solarcube-capaciteiten (4,8 / 9,6 / 14,4 kWh). Definitieve cijfers volgen uit een gratis adviesgesprek aan huis.</p>
+   <p class="calc-note">Indicatieve richtwaarden op basis van uw jaarverbruik: bij 5 kWh een besparing van € 400+ per jaar, en bij elke 5 kWh extra ± € 250 per jaar erbij. De investering is een vanaf-bedrag en hangt af van merk, type en uw situatie. Het merk en type kiezen we samen met u tijdens het gratis adviesgesprek aan huis.</p>
   </div>
  </div>
 </div></section><section><div class="wrap split">
