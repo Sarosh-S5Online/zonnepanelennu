@@ -433,7 +433,7 @@ def faq_block(items=FAQ, alt=True):
     d = "".join(f"<details><summary>{q}</summary><p>{a}</p></details>" for q, a in items)
     return f"""<section class="{'alt' if alt else ''}"><div class="wrap faqwrap">
  <div class="reveal"><span class="eyebrow">Veelgestelde vragen</span><h2>Antwoord op de vragen die u nog heeft</h2><p class="lead">Staat uw vraag er niet tussen? Bel ons gerust op {TEL}.</p><p style="margin-top:22px"><a class="btn btn-line" href="tel:{TEL_HREF}">{ic("phone")} {TEL}</a></p>
-  <div class="faq-photo"><img src="{img(37)}" alt="Geplaatste zonnepanelen in Bodegraven" loading="lazy"></div></div>
+  <div class="faq-photo"><img src="{img(32)}" alt="Installatie van zonnepanelen rond een dakkapel" loading="lazy"></div></div>
  <div class="reveal">{d}</div></div></section>"""
 
 
@@ -537,8 +537,11 @@ def battery_usp():
           ("🔌", "Bij bestaande panelen", "In veel gevallen kan een batterij bij uw huidige installatie (afhankelijk van uw omvormer)."),
           ("🛡️", "Optioneel noodstroom", "Sommige modellen kunnen bij stroomuitval doorleveren. We bespreken wat u wilt."),
           ("📱", "Inzicht op uw telefoon", "Volg live wat uw panelen en batterij doen (monitoring is inbegrepen).")]
-    return f'<section><div class="wrap">{head("Voordelen", "Waarom een thuisbatterij?")}<div class="usp">' + "".join(
-        f'<div class="reveal"><div class="ic">{i}</div><h3>{t}</h3><p>{p}</p></div>' for i, t, p in it) + "</div></div></section>"
+    cards = "".join(f'<div class="reveal"><div class="ic">{i}</div><div><h3>{t}</h3><p>{p}</p></div></div>' for i, t, p in it)
+    return f'''<section><div class="wrap split">
+ <div class="ph reveal"><img src="{img(11)}" alt="Meterkast waar de thuisbatterij op wordt aangesloten" loading="lazy"></div>
+ <div class="reveal">{head("Voordelen", "Waarom een thuisbatterij?")}<div class="usp">{cards}</div></div>
+</div></section>'''
 
 
 def battery_steps():
@@ -549,8 +552,8 @@ def battery_steps():
 
 pages["/thuisbatterij/"] = ("Thuisbatterij installeren | Zonnestroom opslaan | ZonnepanelenNu",
  "Sla uw zonnestroom op met een thuisbatterij en gebruik hem wanneer u wilt. Eerlijk advies aan huis en installatie door gecertificeerde vakmannen. Vraag gratis advies aan.",
- hero("Gebruik uw zonnestroom wanneer <span>u</span> wilt", "Een thuisbatterij bewaart uw overschot voor de avond, in plaats van dat u het goedkoop teruglevert.", img(35), "Thuisbatterij", "Thuisbatterij")
- + trust() + battery_usp() + battery_steps() + calc_block()
+ hero("Gebruik uw zonnestroom wanneer <span>u</span> wilt", "Een thuisbatterij bewaart uw overschot voor de avond, in plaats van dat u het goedkoop teruglevert.", img(8), "Thuisbatterij", "Thuisbatterij")
+ + trust() + calc_block() + battery_usp() + battery_steps()
  + prose("""<span class="eyebrow">Kosten en rendement</span><h2>Wat kost een thuisbatterij, en wanneer verdient hij zich terug?</h2>
  <p>Dat hangt af van de capaciteit, het merk en de installatie. Indicatief ligt de investering tussen ongeveer € 4.000 en € 10.000. De terugverdientijd ligt indicatief tussen 5 en 10 jaar, maar verschilt sterk per huishouden: uw avondverbruik, uw zonnepanelen en uw energiecontract bepalen het resultaat.</p>
  <p>Daarom beloven wij geen standaardcijfers. In een gratis adviesgesprek bekijken we uw meterkast, omvormer en verbruik, en rekenen we uit of een batterij bij u loont. Zo niet, dan zeggen we dat ook.</p>
@@ -602,6 +605,11 @@ pages["/over-ons/"] = ("Over ons | ZonnepanelenNu",
  <p>Wij werken uitsluitend met A-merken. Daarnaast vinden we persoonlijke service belangrijk: we komen altijd langs om de situatie te bekijken en uw wensen te bespreken voordat we een offerte uitbrengen.</p>
  <p>Dat doen we efficiënt, waardoor de installatie binnen {TIJD} na akkoord kan worden uitgevoerd. En als er na de oplevering iets is, bent u niet met een servicenummer aan het bellen: u belt ons.</p>
  <ul><li>Persoonlijk advies aan huis is standaard</li><li>Ruim assortiment aan merken</li><li>Altijd de beste service en garantie</li><li>Monitoring via smartphone inbegrepen</li></ul>""")
+ + f"""<section class="alt"><div class="wrap split rev">
+ <div class="reveal"><span class="eyebrow">Het gezicht achter ZonnepanelenNu</span><h2>Abdel en het team</h2>
+  <p>Abdel is uw vaste contactpersoon bij ZonnepanelenNu: van het eerste adviesgesprek tot de oplevering en de service erna. Geen callcenter, maar hetzelfde vertrouwde gezicht dat ook bij u op het dak heeft gestaan.</p></div>
+ <div class="ph reveal"><img src="{img(37)}" alt="Abdel van ZonnepanelenNu bij een installatie" loading="lazy"></div>
+</div></section>"""
  + stats_block() + why_block() + reviews_block(6, True) + brands_block() + offer_block() + cta_block())
 
 pages["/projecten/"] = ("Projecten | Recent opgeleverde zonnepanelen | ZonnepanelenNu",
