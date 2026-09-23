@@ -366,36 +366,6 @@ footer .legal a{text-decoration:underline;text-underline-offset:3px}
  .calc-checks{grid-template-columns:1fr}
 }
 
-/* calculator: hint + dag/nacht-animatie + vergelijkingstabel */
-.dayviz{border-radius:var(--r);overflow:hidden;background:var(--navy);box-shadow:var(--sh)}
-.dayviz svg{display:block;width:100%;height:auto}
-.dv-cap{position:relative;height:54px;background:#fff;text-align:center;font-size:var(--fs-small);color:var(--mute)}
-.dv-cap span{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:0 14px;gap:6px}
-.dv-cap b{color:var(--navy)}
-.dv-note{margin:0!important;padding:0 0 12px;text-align:center;font-size:12.5px!important;color:var(--mute)!important;background:#fff}
-.dv-panel{fill:#16465f;stroke:#8fd3f4;stroke-width:1.5}
-.dv-dot-day{fill:#e9a735}.dv-dot-night{fill:#7fd0ee}
-.dv-sun{animation:dvsun 14s linear infinite}
-.dv-moon{animation:dvmoon 14s linear infinite;opacity:0}
-.dv-daysky{animation:dvsky 14s linear infinite}
-.dv-stars{animation:dvstars 14s linear infinite;opacity:0}
-.dv-fill{transform-box:fill-box;transform-origin:50% 100%;animation:dvfill 14s linear infinite}
-.dv-win{animation:dvwin 14s linear infinite;opacity:0}
-.dv-flow-day{animation:dvfday 14s linear infinite}
-.dv-flow-night{animation:dvfnight 14s linear infinite;opacity:0}
-.dv-cap-day{animation:dvcday 14s linear infinite}
-.dv-cap-night{animation:dvcnight 14s linear infinite;opacity:0}
-@keyframes dvsun{0%{transform:translate(110px,215px);opacity:1}22%{transform:translate(380px,80px)}44%{transform:translate(690px,215px);opacity:1}48%,100%{transform:translate(690px,215px);opacity:0}}
-@keyframes dvmoon{0%,52%{transform:translate(110px,215px);opacity:0}56%{opacity:1}72%{transform:translate(380px,80px);opacity:1}92%{transform:translate(690px,215px);opacity:1}96%,100%{transform:translate(690px,215px);opacity:0}}
-@keyframes dvsky{0%,40%{opacity:1}52%,90%{opacity:0}100%{opacity:1}}
-@keyframes dvstars{0%,48%{opacity:0}58%,88%{opacity:1}97%,100%{opacity:0}}
-@keyframes dvfill{0%{transform:scaleY(.12)}42%{transform:scaleY(1)}52%{transform:scaleY(1)}92%{transform:scaleY(.12)}100%{transform:scaleY(.12)}}
-@keyframes dvwin{0%,50%{opacity:0}58%,90%{opacity:1}97%,100%{opacity:0}}
-@keyframes dvfday{0%,4%{opacity:0}10%,40%{opacity:1}46%,100%{opacity:0}}
-@keyframes dvfnight{0%,54%{opacity:0}60%,88%{opacity:1}94%,100%{opacity:0}}
-@keyframes dvcday{0%,42%{opacity:1}50%,94%{opacity:0}100%{opacity:1}}
-@keyframes dvcnight{0%,46%{opacity:0}54%,92%{opacity:1}98%,100%{opacity:0}}
-@media(prefers-reduced-motion:reduce){.dv-sun,.dv-moon,.dv-daysky,.dv-stars,.dv-fill,.dv-win,.dv-flow-day,.dv-flow-night,.dv-cap-day,.dv-cap-night{animation:none}.dv-sun{transform:translate(380px,80px)}.dv-flow-day{opacity:1}.dv-cap{height:auto;display:grid;gap:4px;padding:12px 0}.dv-cap span{position:static}.dv-cap-night{opacity:1}}
 .cmp-wrap{max-width:980px;margin:0 auto;border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);background:#fff;border:1px solid var(--line)}
 .cmp{width:100%;border-collapse:collapse;font-size:var(--fs-body)}
 .cmp th,.cmp td{padding:18px 22px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
@@ -410,3 +380,60 @@ footer .legal a{text-decoration:underline;text-underline-offset:3px}
 @media(max-width:700px){.cmp th,.cmp td{padding:12px 10px;font-size:14px}.cmp thead th{font-size:14px}.cmp tbody th{width:30%}}
 
 .cmp .ck{display:inline-grid;place-items:center;width:20px;height:20px;margin-right:8px;border-radius:50%;background:var(--amber);color:#1a1200;font-size:12px;font-weight:900;vertical-align:1px}
+
+/* dag/nacht-animatie (schematisch, 14 s = 24 uur) */
+.dayviz{border-radius:var(--r);overflow:hidden;background:#fff;box-shadow:var(--sh)}
+.dayviz svg{display:block;width:100%;height:auto}
+.dv-cap{position:relative;height:56px;background:#fff;text-align:center;font-size:var(--fs-small);color:var(--mute)}
+.dv-cap span{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:0 14px;gap:6px}
+.dv-cap b{color:var(--navy)}
+.dv-note{margin:0!important;padding:0 0 12px;text-align:center;font-size:12.5px!important;color:var(--mute)!important;background:#fff}
+.dayviz text{font-family:Nunito,system-ui,sans-serif}
+.dv-panel{stroke:#8fd3f4;stroke-width:1.5;animation:dvpanel 14s linear infinite}
+.dv-line{fill:none;stroke-width:4;stroke-linecap:round;stroke-dasharray:2 14;animation:dvdash .9s linear infinite}
+.dv-line-day{stroke:#e9a735}.dv-line-night{stroke:#7fd0ee}
+.dv-dot-day{fill:#ffd27a}.dv-dot-night{fill:#bfeaff}
+.dv-sun{animation:dvsun 14s linear infinite}
+.dv-rays{transform-box:fill-box;transform-origin:center;animation:dvspin 22s linear infinite}
+.dv-moon{opacity:0;animation:dvmoon 14s linear infinite}
+.dv-daysky{animation:dvsky 14s linear infinite}
+.dv-dusk{opacity:0;animation:dvdusk 14s linear infinite}
+.dv-stars{opacity:0;animation:dvstars 14s linear infinite}
+.dv-tw{animation:dvtw 2.6s ease-in-out infinite alternate}
+.dv-clouds{animation:dvsky 14s linear infinite}
+.dv-cloud{animation:dvdrift 50s linear infinite}
+.dv-shade{opacity:0;animation:dvshade 14s linear infinite}
+.dv-shade2{opacity:0;animation:dvshade2 14s linear infinite}
+.dv-fill{transform-box:fill-box;transform-origin:50% 100%;animation:dvfill 14s linear infinite}
+.dv-glow{opacity:.55}
+.dv-bolt{animation:dvbolt 1.8s ease-in-out infinite}
+.dv-pct,.dv-clk{opacity:0}
+.dv-pct{animation:dvwin10 14s linear infinite}
+.dv-clk{animation:dvwin125 14s linear infinite}
+.dv-win{opacity:0;animation:dvwin 14s linear infinite}
+.dv-flow-day{animation:dvfday 14s linear infinite}
+.dv-flow-night{opacity:0;animation:dvfnight 14s linear infinite}
+.dv-cap-day{animation:dvcday 14s linear infinite}
+.dv-cap-night{opacity:0;animation:dvcnight 14s linear infinite}
+@keyframes dvdash{to{stroke-dashoffset:-16}}
+@keyframes dvspin{to{transform:rotate(360deg)}}
+@keyframes dvtw{from{opacity:.25}to{opacity:1}}
+@keyframes dvbolt{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:.95;transform:scale(1.08)}}
+@keyframes dvdrift{from{transform:translateX(-200px)}to{transform:translateX(1000px)}}
+@keyframes dvpanel{0%{fill:#2c6f99}25%{fill:#3f97cf}45%{fill:#2c6f99}55%,90%{fill:#12384d}100%{fill:#2c6f99}}
+@keyframes dvsky{0%,44%{opacity:1}56%,90%{opacity:0}100%{opacity:1}}
+@keyframes dvdusk{0%,40%{opacity:0}48%{opacity:.9}56%,88%{opacity:0}96%{opacity:.7}100%{opacity:0}}
+@keyframes dvstars{0%,48%{opacity:0}58%,88%{opacity:1}97%,100%{opacity:0}}
+@keyframes dvshade{0%,50%{opacity:0}60%,88%{opacity:.5}98%,100%{opacity:0}}
+@keyframes dvshade2{0%,50%{opacity:0}60%,88%{opacity:.3}98%,100%{opacity:0}}
+@keyframes dvfill{0%{transform:scaleY(.12)}42%{transform:scaleY(1)}52%{transform:scaleY(1)}92%{transform:scaleY(.12)}100%{transform:scaleY(.12)}}
+@keyframes dvwin10{0%{opacity:1}9.9%{opacity:1}10%,100%{opacity:0}}
+@keyframes dvwin125{0%{opacity:1}12.4%{opacity:1}12.5%,100%{opacity:0}}
+@keyframes dvwin{0%,50%{opacity:0}58%,90%{opacity:1}97%,100%{opacity:0}}
+@keyframes dvfday{0%,4%{opacity:0}10%,40%{opacity:1}46%,100%{opacity:0}}
+@keyframes dvfnight{0%,54%{opacity:0}60%,88%{opacity:1}94%,100%{opacity:0}}
+@keyframes dvcday{0%,42%{opacity:1}50%,94%{opacity:0}100%{opacity:1}}
+@keyframes dvcnight{0%,46%{opacity:0}54%,92%{opacity:1}98%,100%{opacity:0}}
+@keyframes dvsun{0%{opacity:1;transform:translate(110px,215px)}5%{transform:translate(168px,161px)}10%{transform:translate(226px,119px)}15%{transform:translate(284px,89px)}20%{transform:translate(342px,71px)}25%{transform:translate(400px,65px)}30%{transform:translate(458px,71px)}35%{transform:translate(516px,89px)}40%{transform:translate(574px,119px)}45%{transform:translate(632px,161px)}50%{transform:translate(690px,215px)}46%{opacity:1}52%,100%{opacity:0;transform:translate(690px,215px)}}
+@keyframes dvmoon{0%,53%{opacity:0;transform:translate(110px,215px)}54%{opacity:0;transform:translate(110px,215px)}60%{transform:translate(193px,142px)}66%{transform:translate(276px,93px)}72%{transform:translate(359px,68px)}78%{transform:translate(441px,68px)}84%{transform:translate(524px,93px)}90%{transform:translate(607px,142px)}96%{transform:translate(690px,215px)}56%{opacity:1}94%{opacity:1}98%,100%{opacity:0;transform:translate(690px,215px)}}
+@media(prefers-reduced-motion:reduce){.dv-sun,.dv-moon,.dv-daysky,.dv-dusk,.dv-stars,.dv-tw,.dv-clouds,.dv-cloud,.dv-shade,.dv-shade2,.dv-fill,.dv-bolt,.dv-pct,.dv-clk,.dv-win,.dv-flow-day,.dv-flow-night,.dv-cap-day,.dv-cap-night,.dv-panel,.dv-line,.dv-rays{animation:none}.dv-sun{transform:translate(400px,65px)}.dv-flow-day{opacity:1}.dv-cap{height:auto;display:grid;gap:4px;padding:12px 0}.dv-cap span{position:static}.dv-cap-night{opacity:1}.dv-clk-12{opacity:1}.dv-panel{fill:#3f97cf}}

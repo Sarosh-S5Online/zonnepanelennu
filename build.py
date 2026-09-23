@@ -342,7 +342,7 @@ def calc_block():
 
 
 def day_anim():
-    # schematische dag/nacht-animatie (inline SVG + CSS, geen externe bestanden; werkt ook in een WordPress HTML-widget)
+    # schematische dag/nacht-animatie (inline SVG + CSS, 14 s = 24 uur; geen externe bestanden, werkt ook in een WordPress HTML-widget)
     def pt(t, off=0):
         x, y = 380 + 130 * t, 190 + 80 * t
         return x - 0.52 * off, y + 0.85 * off
@@ -350,28 +350,64 @@ def day_anim():
     for a, b in ((0.14, 0.34), (0.38, 0.58), (0.62, 0.82)):
         p1, p2, p3, p4 = pt(a, 5), pt(b, 5), pt(b, 17), pt(a, 17)
         panels += '<polygon class="dv-panel" points="' + " ".join(f"{x:.0f},{y:.0f}" for x, y in (p1, p2, p3, p4)) + '"/>'
-    dots_day = "".join(f'<circle r="5" class="dv-dot dv-dot-day"><animateMotion dur="1.8s" begin="{d}s" repeatCount="indefinite" path="{p}"/></circle>'
-                       for p in ("M470 250 C520 246 565 262 596 296", "M430 232 L420 322") for d in (0, 0.9))
-    dots_night = "".join(f'<circle r="5" class="dv-dot dv-dot-night"><animateMotion dur="1.6s" begin="{d}s" repeatCount="indefinite" path="M560 352 L470 352"/></circle>' for d in (0, 0.8))
+    stars = "".join(f'<circle class="dv-tw" cx="{x}" cy="{y}" r="{r}" style="animation-delay:-{d}s"/>' for x, y, r, d in
+                    ((90, 70, 2, .3), (210, 120, 1.6, 1.1), (330, 50, 2, .7), (560, 80, 1.8, 1.9), (690, 140, 2, .2), (740, 60, 1.6, 1.4),
+                     (150, 190, 1.4, 2.2), (640, 40, 1.6, .9), (450, 30, 1.4, 1.6), (40, 130, 1.6, .5), (760, 200, 1.4, 2.0), (280, 160, 1.2, 1.3)))
+    cloud = lambda y, sc, dur, dl: (f'<g transform="translate(0,{y}) scale({sc})"><g class="dv-cloud" style="animation-duration:{dur}s;animation-delay:-{dl}s" fill="#fff" opacity=".9">'
+                                    '<ellipse cx="0" cy="0" rx="46" ry="15"/><ellipse cx="-20" cy="-10" rx="24" ry="16"/><ellipse cx="14" cy="-16" rx="28" ry="19"/></g></g>')
+    flows_day = ('<path class="dv-line dv-line-day" d="M470 250 C520 246 565 262 596 296"/><path class="dv-line dv-line-day" d="M430 236 L420 322"/>'
+                 '<circle r="5" class="dv-dot-day"><animateMotion dur="1.9s" repeatCount="indefinite" path="M470 250 C520 246 565 262 596 296"/></circle>'
+                 '<circle r="5" class="dv-dot-day"><animateMotion dur="1.9s" begin="0.95s" repeatCount="indefinite" path="M470 250 C520 246 565 262 596 296"/></circle>'
+                 '<circle r="5" class="dv-dot-day"><animateMotion dur="1.5s" repeatCount="indefinite" path="M430 236 L420 322"/></circle>')
+    flows_night = ('<path class="dv-line dv-line-night" d="M560 352 L470 352"/>'
+                   '<circle r="5" class="dv-dot-night"><animateMotion dur="1.6s" repeatCount="indefinite" path="M560 352 L470 352"/></circle>'
+                   '<circle r="5" class="dv-dot-night"><animateMotion dur="1.6s" begin="0.8s" repeatCount="indefinite" path="M560 352 L470 352"/></circle>')
+    pcts = "".join(f'<text class="dv-pct" x="595" y="381" text-anchor="middle" font-size="15" font-weight="800" fill="#0b2a3b" style="animation-delay:{i * 1.4:g}s">{p}%</text>' for i, p in enumerate(['22', '43', '64', '85', '100', '93', '71', '49', '27', '12']))
+    clks = "".join(f'<text class="dv-clk{" dv-clk-12" if c == "12:00" else ""}" x="66" y="43" text-anchor="middle" font-size="19" font-weight="800" fill="#fff" style="animation-delay:{i * 1.75 - 0.875:g}s">{c}</text>' for i, c in enumerate(['06:00', '09:00', '12:00', '15:00', '18:00', '21:00', '00:00', '03:00']))
+    pill = lambda x, y, w, t: (f'<rect x="{x}" y="{y}" width="{w}" height="24" rx="12" fill="#fff" opacity=".95"/>'
+                                f'<text x="{x + w / 2}" y="{y + 16.5}" text-anchor="middle" font-size="12.5" font-weight="800" fill="#0b2a3b">{t}</text>')
     return f"""<div class="dayviz reveal" role="img" aria-label="Schematische animatie van een dag: overdag laden de zonnepanelen de thuisbatterij, 's avonds en 's nachts voorziet de batterij het huis van opgeslagen zonnestroom.">
  <svg viewBox="0 0 800 460" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <defs><linearGradient id="dvday" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fd3f4"/><stop offset="1" stop-color="#e6f5fb"/></linearGradient>
-  <linearGradient id="dvnight" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b2a3b"/><stop offset="1" stop-color="#16465f"/></linearGradient></defs>
+  <defs>
+   <linearGradient id="dvday" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6cc0ee"/><stop offset=".7" stop-color="#d9f0fb"/><stop offset="1" stop-color="#fdf3df"/></linearGradient>
+   <linearGradient id="dvnight" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#061722"/><stop offset=".7" stop-color="#123a4f"/><stop offset="1" stop-color="#1d5573"/></linearGradient>
+   <linearGradient id="dvdusk" x1="0" y1="0" x2="0" y2="1"><stop offset=".35" stop-color="#e9a735" stop-opacity="0"/><stop offset="1" stop-color="#f0863a" stop-opacity=".85"/></linearGradient>
+   <linearGradient id="dvbatt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd27a"/><stop offset="1" stop-color="#e9a735"/></linearGradient>
+   <radialGradient id="dvsunglow"><stop offset="0" stop-color="#ffd27a" stop-opacity=".9"/><stop offset="1" stop-color="#ffd27a" stop-opacity="0"/></radialGradient>
+   <radialGradient id="dvmoonglow"><stop offset="0" stop-color="#cfeaff" stop-opacity=".55"/><stop offset="1" stop-color="#cfeaff" stop-opacity="0"/></radialGradient>
+   <mask id="dvmm"><rect x="-40" y="-40" width="80" height="80" fill="#fff"/><circle cx="12" cy="-7" r="22" fill="#000"/></mask>
+   <filter id="dvblur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="7"/></filter>
+  </defs>
   <rect width="800" height="460" fill="url(#dvnight)"/>
-  <g class="dv-stars" fill="#fff"><circle cx="90" cy="70" r="2"/><circle cx="210" cy="120" r="1.6"/><circle cx="330" cy="50" r="2"/><circle cx="560" cy="80" r="1.8"/><circle cx="690" cy="140" r="2"/><circle cx="740" cy="60" r="1.6"/><circle cx="150" cy="190" r="1.4"/><circle cx="640" cy="40" r="1.6"/></g>
   <rect class="dv-daysky" width="800" height="460" fill="url(#dvday)"/>
-  <g class="dv-sun"><circle r="46" fill="#e9a735" opacity=".22"/><circle r="34" fill="#e9a735"/></g>
-  <g class="dv-moon"><path d="M6 -26 A26 26 0 1 0 6 26 A20 20 0 1 1 6 -26Z" fill="#f4f8fb"/></g>
-  <rect y="400" width="800" height="60" fill="#2d6a4f" opacity=".85"/>
-  <rect x="270" y="270" width="220" height="130" fill="#fff" stroke="#c9d8e2" stroke-width="2"/>
-  <polygon points="250,272 380,190 510,272" fill="#0b2a3b"/>
+  <rect class="dv-dusk" width="800" height="460" fill="url(#dvdusk)"/>
+  <g class="dv-clouds">{cloud(90, 1, 50, 8)}{cloud(150, .7, 64, 40)}{cloud(60, .85, 58, 24)}</g>
+  <g class="dv-sun"><circle r="90" fill="url(#dvsunglow)"/><g class="dv-rays" stroke="#e9a735" stroke-width="5" stroke-linecap="round"><path d="M0 -58V-72M0 58V72M-58 0H-72M58 0H72M41 -41L51 -51M-41 41L-51 51M41 41L51 51M-41 -41L-51 -51"/></g><circle r="34" fill="#f5b83d"/><circle r="27" fill="#ffd27a"/></g>
+  <path d="M0 405 Q120 330 260 388 T520 372 T800 385 V460 H0Z" fill="#4f9a70"/>
+  <g><rect x="120" y="360" width="8" height="42" fill="#5a4632"/><circle cx="124" cy="346" r="26" fill="#2f7a55"/><circle cx="112" cy="358" r="18" fill="#3a8a63"/><rect x="700" y="366" width="7" height="36" fill="#5a4632"/><circle cx="703" cy="352" r="22" fill="#2f7a55"/><circle cx="714" cy="362" r="15" fill="#3a8a63"/></g>
+  <rect x="292" y="205" width="22" height="50" fill="#8a4b3c"/><rect x="288" y="200" width="30" height="8" rx="2" fill="#6f3a2e"/>
+  <rect x="270" y="270" width="220" height="132" fill="#fbfdfe" stroke="#c9d8e2" stroke-width="2"/>
+  <polygon points="250,272 380,190 510,272" fill="#0b2a3b"/><polygon points="250,272 380,190 510,272" fill="none" stroke="#16465f" stroke-width="3" stroke-linejoin="round"/>
   {panels}
-  <rect class="dv-win" x="300" y="310" width="34" height="34" rx="3" fill="#e9a735"/><rect class="dv-win" x="426" y="310" width="34" height="34" rx="3" fill="#e9a735"/>
-  <rect x="350" y="340" width="60" height="60" rx="3" fill="#139acf" opacity=".9"/>
-  <rect x="560" y="300" width="70" height="100" rx="10" fill="#fff" stroke="#0b2a3b" stroke-width="4"/><rect x="583" y="291" width="24" height="10" rx="3" fill="#0b2a3b"/>
-  <rect class="dv-fill" x="568" y="308" width="54" height="84" rx="6" fill="#e9a735"/>
-  <text x="595" y="425" text-anchor="middle" font-size="15" font-weight="700" fill="#fff" font-family="Nunito,sans-serif">Thuisbatterij</text>
-  <g class="dv-flow-day">{dots_day}</g><g class="dv-flow-night">{dots_night}</g>
+  <rect x="300" y="308" width="38" height="38" rx="3" fill="#d9f0fb" stroke="#0b2a3b" stroke-width="3"/><path d="M319 308V346M300 327H338" stroke="#0b2a3b" stroke-width="2"/>
+  <rect x="426" y="308" width="38" height="38" rx="3" fill="#d9f0fb" stroke="#0b2a3b" stroke-width="3"/><path d="M445 308V346M426 327H464" stroke="#0b2a3b" stroke-width="2"/>
+  <rect x="352" y="338" width="58" height="64" rx="4" fill="#139acf"/><circle cx="399" cy="372" r="3.5" fill="#fff"/>
+  <path d="M0 402 Q200 392 400 404 T800 400 V460 H0Z" fill="#2d6a4f"/>
+  <rect class="dv-shade" width="800" height="460" fill="#061a2a"/>
+  <g class="dv-win"><rect x="296" y="304" width="46" height="46" rx="8" fill="#e9a735" filter="url(#dvblur)"/><rect x="422" y="304" width="46" height="46" rx="8" fill="#e9a735" filter="url(#dvblur)"/><rect x="300" y="308" width="38" height="38" rx="3" fill="#ffd27a"/><rect x="426" y="308" width="38" height="38" rx="3" fill="#ffd27a"/><path d="M319 308V346M300 327H338M445 308V346M426 327H464" stroke="#b9791a" stroke-width="2"/></g>
+  <rect class="dv-shade2" width="800" height="460" fill="#061a2a" opacity="0"/>
+  <g class="dv-stars" fill="#fff">{stars}</g>
+  <g class="dv-moon"><circle r="60" fill="url(#dvmoonglow)"/><circle r="26" fill="#f4f8fb" mask="url(#dvmm)"/></g>
+  <rect class="dv-fill dv-glow" x="568" y="308" width="54" height="84" rx="6" fill="#e9a735" filter="url(#dvblur)"/>
+  <rect x="560" y="300" width="70" height="100" rx="10" fill="#fff" stroke="#0b2a3b" stroke-width="4"/><rect x="583" y="290" width="24" height="10" rx="3" fill="#0b2a3b"/>
+  <rect class="dv-fill" x="568" y="308" width="54" height="84" rx="6" fill="url(#dvbatt)"/>
+  <path d="M568 336H622M568 364H622" stroke="#fff" stroke-opacity=".55" stroke-width="2"/>
+  <path class="dv-bolt" style="transform-box:fill-box;transform-origin:center" d="M596 318 L584 346 H593 L589 366 L606 336 H597 Z" fill="#0b2a3b" opacity=".6"/>
+  {pcts}
+  <g class="dv-flow-day">{flows_day}</g><g class="dv-flow-night">{flows_night}</g>
+  {pill(390, 150, 108, "Zonnepanelen")}<path d="M444 174L444 226" stroke="#fff" stroke-width="2" stroke-dasharray="3 4"/>
+  {pill(552, 422, 86, "Thuisbatterij")}{pill(316, 422, 60, "Uw huis")}
+  <rect x="20" y="16" width="92" height="38" rx="19" fill="#0b2a3b" opacity=".78"/>{clks}
  </svg>
  <div class="dv-cap"><span class="dv-cap-day"><b>Overdag</b> · de panelen laden de batterij</span><span class="dv-cap-night"><b>&rsquo;s Avonds en &rsquo;s nachts</b> · de batterij voorziet het huis</span></div>
  <p class="dv-note">Schematische weergave van een dag</p>
